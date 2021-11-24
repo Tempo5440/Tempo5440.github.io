@@ -38,7 +38,7 @@ input {
 
 div.Vid {
     width:80%;
-    height:20em;
+    height:10em;
     max-height: 20em auto;
     overflow:hidden;
     display: block;
