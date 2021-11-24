@@ -39,7 +39,6 @@ input {
 div.Vid {
     width:80%;
     height:20em;
-    max-height: 20em;
     overflow: hidden;
     display: block;
     margin-left: auto;
@@ -55,7 +54,6 @@ div.Vid video {
 video {
     width: 200%;
     height: 200%;
-    max-height: 20em auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
