@@ -39,23 +39,21 @@ input {
 div.Vid {
     width:80%;
     height:20em;
-    max-height: 20em auto;
-    overflow:hidden;
+    overflow: hidden;
     display: block;
     margin-left: auto;
     margin-right: auto;
     /*border-style: double;*/
 }
 div.Vid video {
-    margin-top:-175px;
-    margin-left:-175px;
-    margin-bottom: -175px;
+    margin-top: -5em;
+    margin-left: -5em;
+    margin-bottom: -5em;
   }
 
 video {
     width: 200%;
     height: 200%;
-    max-height: 20em auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
