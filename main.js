@@ -3,15 +3,6 @@ const seen = new Set();
 // Create new barcode detector
 const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
 
-// Define custom element
-customElements.define('scaned-item', class extends HTMLElement {
-  constructor() {
-    super();
-    const template = document.querySelector('#scaned-item').content;
-    const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(template.cloneNode(true));
-  };
-});
-
 // Codes proxy/state
 const codesProxy = new Proxy(codes, {
   set (target, prop, value, receiver) {
@@ -41,10 +32,12 @@ const codesProxy = new Proxy(codes, {
 		varEinheit = document.getElementById("Einh"+SucheArtNr).textContent;
 		varBez = document.getElementById("Bez"+SucheArtNr).textContent;
 		varGr = document.getElementById("Gr"+SucheArtNr).textContent;
+    varBestM = document.getElementById("BestM"+SucheArtNr).textContent;
 		ArtDatEinh.textContent = varEinheit;
 		ArtDatBez.textContent = varBez;
 		ArtDatGr.textContent = varGr;
-
+    document.getElementById('Menge').value = varBestM;
+    
     // Goes into the custom elements formate slot
     format.setAttribute('slot', 'format');
     format.innerHTML = value.format;
@@ -108,8 +101,8 @@ const drawCodePath = ({cornerPoints}) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Create new gradient
-  strokeGradient.addColorStop('0', '#c471ed');
-  strokeGradient.addColorStop('1', '#f7797d');
+  strokeGradient.addColorStop('0', '#ffffff');
+  strokeGradient.addColorStop('1', '#ff0000');
 
   // Define stoke styles
   ctx.strokeStyle = strokeGradient;
@@ -138,6 +131,8 @@ const drawCodePath = ({cornerPoints}) => {
   ctx.stroke();
 }
 
+
+
 // Detect code function 
 const detectCode = () => {
   barcodeDetector.detect(video).then(codes => {
@@ -150,7 +145,7 @@ const detectCode = () => {
       drawCodePath(barcode);
       
       // Code in seen set then exit loop 
-      if (seen.has(barcode.rawValue)) return;
+      //if (seen.has(barcode.rawValue)) return;
 
       // Save barcode to window to use later on
       // then push to the codes proxy
