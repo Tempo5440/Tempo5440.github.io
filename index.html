@@ -14,12 +14,12 @@
 </head>
 <body>
 
-    <a href="http://192.168.240.1/"><img src="./img/LogoT.png" alt="Tempo Luft- und Wassertechnik GmbH" class="LogoCenter" h></a>
+    <a href="http://192.168.240.3/"><img src="./img/LogoT.png" alt="Tempo Luft- und Wassertechnik GmbH" class="LogoCenter" h></a>
     <br>    
     <h1>Artikel für Bestellung scannen:</h1>
     <div id="video-wrapper" class="Vid">
         <video id="video" poster="./img/Barcode.png" autoplay></video>
-        <canvas id="canvas" height="18em" class="divCanvas"></canvas>
+        <canvas id="canvas" class="divCanvas"></canvas>
     </div>
 
     <form>
@@ -53,12 +53,11 @@
                 </tbody>
         </table>
 
+        <button id="scannen" class="styled">weiter scannen</button>
         <button id="mehr" class="styled">Artikel hinzufügen</button>
-        <button id="loeschen" class="styled">alle Einträge löschen</button>
         <button id="senden" class="styled">senden</button>
         
     </form>
-
 
     <br>
         <h2>Gescannte Artikel:</h2>
@@ -79,6 +78,9 @@
 
             </tbody>
         </table>
+
+        <button id="loeschen" class="styled">alle Einträge löschen</button>
+
     <br>
     <div hidden="">
         <h2>Artikelstammdaten:</h2>
@@ -224,7 +226,7 @@
                 <td id='30070'>30070</td>
                 <td id='Einh30070'>Stk</td>
                 <td id='Bez30070'>Kippd&uuml;bel</td>
-                <td id='Gr30070'>M8 x 100</td>
+                <td id='Gr30070'>M 8 x 100</td>
                 <td id='BestM30070'>50</td>
             </tr>
             <tr>
@@ -274,7 +276,7 @@
                 <td id='Einh30107'>Stk</td>
                 <td id='Bez30107'>Gitterblende Wst.Nr. 1.4301 eins. geschliffen K320, s = 1 mm</td>
                 <td id='Gr30107'>GBN 250-1</td>
-                <td id='BestM30107'>200</td>
+                <td id='BestM30107'>198</td>
             </tr>
             <tr>
                 <td id='30110'>30110</td>
@@ -379,7 +381,7 @@
                 <td id='Einh30223'>Stk</td>
                 <td id='Bez30223'>Hutmuttern 6-Kt DIN 1587 NIRO A2</td>
                 <td id='Gr30223'>M 8</td>
-                <td id='BestM30223'>1000</td>
+                <td id='BestM30223'>2000</td>
             </tr>
             <tr>
                 <td id='30230'>30230</td>
@@ -448,7 +450,7 @@
                 <td id='30260'>30260</td>
                 <td id='Einh30260'>Stk</td>
                 <td id='Bez30260'>Flanschklammer</td>
-                <td id='Gr30260'>M8 x 20</td>
+                <td id='Gr30260'>M 8 x 20</td>
                 <td id='BestM30260'>600</td>
             </tr>
             <tr>
@@ -1107,7 +1109,7 @@
                 <td id='Einh31022'>Stk</td>
                 <td id='Bez31022'>Fiberscheiben f&uuml;r Niro</td>
                 <td id='Gr31022'>K 80/115 mm</td>
-                <td id='BestM31022'>800</td>
+                <td id='BestM31022'>600</td>
             </tr>
             <tr>
                 <td id='31023'>31023</td>
@@ -1162,7 +1164,7 @@
                 <td id='31045'>31045</td>
                 <td id='Einh31045'>Stk</td>
                 <td id='Bez31045'>Tr&auml;gerklammern</td>
-                <td id='Gr31045'>M10</td>
+                <td id='Gr31045'>M 10</td>
                 <td id='BestM31045'>0</td>
             </tr>
             <tr>
@@ -1176,14 +1178,14 @@
                 <td id='31047'>31047</td>
                 <td id='Einh31047'>Stk</td>
                 <td id='Bez31047'>Halteklammer verz. f&uuml;r Montageschiene 38/40</td>
-                <td id='Gr31047'>M8</td>
+                <td id='Gr31047'>M 8</td>
                 <td id='BestM31047'>500</td>
             </tr>
             <tr>
                 <td id='31048'>31048</td>
                 <td id='Einh31048'>Stk</td>
                 <td id='Bez31048'>Halteklammer verz. f&uuml;r Montageschiene 38/40</td>
-                <td id='Gr31048'>M10</td>
+                <td id='Gr31048'>M 10</td>
                 <td id='BestM31048'>100</td>
             </tr>
             <tr>
@@ -2233,14 +2235,14 @@
                 <td id='31630'>31630</td>
                 <td id='Einh31630'>Stk</td>
                 <td id='Bez31630'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr31630'>M4x15</td>
+                <td id='Gr31630'>M 4 x 15</td>
                 <td id='BestM31630'>1000</td>
             </tr>
             <tr>
                 <td id='31631'>31631</td>
                 <td id='Einh31631'>Stk</td>
                 <td id='Bez31631'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr31631'>M6x10</td>
+                <td id='Gr31631'>M 6 x 10</td>
                 <td id='BestM31631'>5000</td>
             </tr>
             <tr>
@@ -2317,7 +2319,7 @@
                 <td id='31643'>31643</td>
                 <td id='Einh31643'>Stk</td>
                 <td id='Bez31643'>Stufennippel f&uuml;r RK 97</td>
-                <td id='Gr31643'>M20 IP 54</td>
+                <td id='Gr31643'>M 20 IP 54</td>
                 <td id='BestM31643'>300</td>
             </tr>
             <tr>
@@ -2521,7 +2523,7 @@
                 <td id='Einh31678'>Stk</td>
                 <td id='Bez31678'>Sechskantmutter DIN 934 NIRO A2</td>
                 <td id='Gr31678'>M 6</td>
-                <td id='BestM31678'>2000</td>
+                <td id='BestM31678'>5000</td>
             </tr>
             <tr>
                 <td id='31679'>31679</td>
@@ -2814,14 +2816,14 @@
                 <td id='31722'>31722</td>
                 <td id='Einh31722'>Stk</td>
                 <td id='Bez31722'>Grundplatte V4A</td>
-                <td id='Gr31722'>M8 L</td>
+                <td id='Gr31722'>M 8 L</td>
                 <td id='BestM31722'>30</td>
             </tr>
             <tr>
                 <td id='31723'>31723</td>
                 <td id='Einh31723'>Stk</td>
                 <td id='Bez31723'>Rohrschelle 3/4"</td>
-                <td id='Gr31723'>M8</td>
+                <td id='Gr31723'>M 8</td>
                 <td id='BestM31723'>0</td>
             </tr>
             <tr>
@@ -3010,7 +3012,7 @@
                 <td id='31750'>31750</td>
                 <td id='Einh31750'>Stk</td>
                 <td id='Bez31750'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr31750'>M6x15</td>
+                <td id='Gr31750'>M 6 x 15</td>
                 <td id='BestM31750'>0</td>
             </tr>
             <tr>
@@ -3619,7 +3621,7 @@
                 <td id='31838'>31838</td>
                 <td id='Einh31838'>Stk</td>
                 <td id='Bez31838'>Zylinderschraube Innensechskant DIN 912 verz.</td>
-                <td id='Gr31838'>M6 x 20</td>
+                <td id='Gr31838'>M 6 x 20</td>
                 <td id='BestM31838'>0</td>
             </tr>
             <tr>
@@ -3682,7 +3684,7 @@
                 <td id='31848'>31848</td>
                 <td id='Einh31848'>Stk</td>
                 <td id='Bez31848'>Sechskantmutter DIN 934 verz.</td>
-                <td id='Gr31848'>M4</td>
+                <td id='Gr31848'>M 4</td>
                 <td id='BestM31848'>400</td>
             </tr>
             <tr>
@@ -3920,7 +3922,7 @@
                 <td id='31882'>31882</td>
                 <td id='Einh31882'>Stk</td>
                 <td id='Bez31882'>Beilagscheibe verz. DIN 125</td>
-                <td id='Gr31882'>M8</td>
+                <td id='Gr31882'>M 8</td>
                 <td id='BestM31882'>0</td>
             </tr>
             <tr>
@@ -4061,7 +4063,7 @@
                 <td id='Einh31909'>Stk</td>
                 <td id='Bez31909'>Silikon neutral transparent</td>
                 <td id='Gr31909'>S 18 / 310 ml</td>
-                <td id='BestM31909'>25</td>
+                <td id='BestM31909'>50</td>
             </tr>
             <tr>
                 <td id='31910'>31910</td>
@@ -4102,7 +4104,7 @@
                 <td id='31915'>31915</td>
                 <td id='Einh31915'>Stk</td>
                 <td id='Bez31915'>Zylinderschraube Innensechskant DIN 912 verz.</td>
-                <td id='Gr31915'>M8 x 60</td>
+                <td id='Gr31915'>M 8 x 60</td>
                 <td id='BestM31915'>0</td>
             </tr>
             <tr>
@@ -4592,7 +4594,7 @@
                 <td id='31987'>31987</td>
                 <td id='Einh31987'>Stk</td>
                 <td id='Bez31987'>Senkscheibe NIRO</td>
-                <td id='Gr31987'>M6</td>
+                <td id='Gr31987'>M 6</td>
                 <td id='BestM31987'>0</td>
             </tr>
             <tr>
@@ -4978,7 +4980,7 @@
                 <td id='Einh32043'>Stk</td>
                 <td id='Bez32043'>Systemtrenner BA295 bis 65&deg;C</td>
                 <td id='Gr32043'>BA295 1/2"</td>
-                <td id='BestM32043'>1</td>
+                <td id='BestM32043'>3</td>
             </tr>
             <tr>
                 <td id='32044'>32044</td>
@@ -5033,7 +5035,7 @@
                 <td id='32051'>32051</td>
                 <td id='Einh32051'>Stk</td>
                 <td id='Bez32051'>Kabelverschraubung 50.625PA/7035 HGR</td>
-                <td id='Gr32051'>M25x1,5</td>
+                <td id='Gr32051'>M 25x1,5</td>
                 <td id='BestM32051'>0</td>
             </tr>
             <tr>
@@ -5208,8 +5210,8 @@
                 <td id='32076'>32076</td>
                 <td id='Einh32076'>lfm</td>
                 <td id='Bez32076'>Schalld&auml;mmmatte Qualit&auml;t 491 NKSchmalrolle 495 mm</td>
-                <td id='Gr32076'>Dicke 30 mm</td>
-                <td id='BestM32076'>300</td>
+                <td id='Gr32076'>Dicke 30 mm - 15 lfm/Rolle</td>
+                <td id='BestM32076'>180</td>
             </tr>
             <tr>
                 <td id='32077'>32077</td>
@@ -5432,7 +5434,7 @@
                 <td id='32108'>32108</td>
                 <td id='Einh32108'>Stk</td>
                 <td id='Bez32108'>W&uuml;rgenippel 125 M G</td>
-                <td id='Gr32108'>M25 x 1,5</td>
+                <td id='Gr32108'>M 25 x 1,5</td>
                 <td id='BestM32108'>0</td>
             </tr>
             <tr>
@@ -5629,7 +5631,7 @@
                 <td id='Einh32163'>m&sup2;</td>
                 <td id='Bez32163'>Hartschaumplatte XPS-G/OF 30 mmFabr. Knauff C350-SE30</td>
                 <td id='Gr32163'>1250 x 600 mm</td>
-                <td id='BestM32163'>82,5</td>
+                <td id='BestM32163'>42</td>
             </tr>
             <tr>
                 <td id='32164'>32164</td>
@@ -5657,7 +5659,7 @@
                 <td id='Einh32167'>Stk</td>
                 <td id='Bez32167'>Alu-HM-S&auml;geblatt inkl. Reduzierring 32/30</td>
                 <td id='Gr32167'>250x60Zx32B</td>
-                <td id='BestM32167'>0</td>
+                <td id='BestM32167'>5</td>
             </tr>
             <tr>
                 <td id='32168'>32168</td>
@@ -5865,7 +5867,7 @@
             <tr>
                 <td id='32197'>32197</td>
                 <td id='Einh32197'>Stk</td>
-                <td id='Bez32197'>Geh&ouml;rschutz-St&ouml;psel E.A.R.-Ultra-Fit mit Sicherheitskordel</td>
+                <td id='Bez32197'>Geh&ouml;rschutz-St&ouml;psel mit Sicherheitskordel</td>
                 <td id='Gr32197'>SNR: 32 dB</td>
                 <td id='BestM32197'>10</td>
             </tr>
@@ -6133,13 +6135,13 @@
                 <td id='Einh32235'>Stk</td>
                 <td id='Bez32235'>HSS-Co Spiralbohrer DIN 338-N</td>
                 <td id='Gr32235'>10,5 mm</td>
-                <td id='BestM32235'>0</td>
+                <td id='BestM32235'>10</td>
             </tr>
             <tr>
                 <td id='32236'>32236</td>
                 <td id='Einh32236'>Stk</td>
                 <td id='Bez32236'>Gewindebohrer f&uuml;r Handbohrmaschine f&uuml;r NIRO Mr- 232 060T</td>
-                <td id='Gr32236'>M6</td>
+                <td id='Gr32236'>M 6</td>
                 <td id='BestM32236'>0</td>
             </tr>
             <tr>
@@ -6285,7 +6287,7 @@
             <tr>
                 <td id='32257'>32257</td>
                 <td id='Einh32257'>Stk</td>
-                <td id='Bez32257'>Intensiv-Scheibenreiniger f&uuml;r Lexan</td>
+                <td id='Bez32257'>Intensiv-Scheibenreiniger f&uuml;r Polycarbonat</td>
                 <td id='Gr32257'>R530 / 400 ml</td>
                 <td id='BestM32257'>0</td>
             </tr>
@@ -6398,7 +6400,7 @@
                 <td id='32273'>32273</td>
                 <td id='Einh32273'>Stk</td>
                 <td id='Bez32273'>Innensechskantschrauben DIN 912 NIRO</td>
-                <td id='Gr32273'>M4 x 30</td>
+                <td id='Gr32273'>M 4 x 30</td>
                 <td id='BestM32273'>0</td>
             </tr>
             <tr>
@@ -6517,7 +6519,7 @@
                 <td id='32290'>32290</td>
                 <td id='Einh32290'>Stk</td>
                 <td id='Bez32290'>Hutmutter NIRO A2</td>
-                <td id='Gr32290'>M5</td>
+                <td id='Gr32290'>M 5</td>
                 <td id='BestM32290'>0</td>
             </tr>
             <tr>
@@ -6678,7 +6680,7 @@
                 <td id='32313'>32313</td>
                 <td id='Einh32313'>Stk</td>
                 <td id='Bez32313'>Bolzenhalter komplett f&uuml;r Soyer Bolzenschwei&szlig;er</td>
-                <td id='Gr32313'>M6 Ms 58</td>
+                <td id='Gr32313'>M 6 Ms 58</td>
                 <td id='BestM32313'>0</td>
             </tr>
             <tr>
@@ -7469,7 +7471,7 @@
                 <td id='32427'>32427</td>
                 <td id='Einh32427'>Stk</td>
                 <td id='Bez32427'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr32427'>M5x10</td>
+                <td id='Gr32427'>M 5 x 10</td>
                 <td id='BestM32427'>1000</td>
             </tr>
             <tr>
@@ -7581,7 +7583,7 @@
                 <td id='32443'>32443</td>
                 <td id='Einh32443'>Stk</td>
                 <td id='Bez32443'>Fl&uuml;gelschraube Niro A2</td>
-                <td id='Gr32443'>M6x12</td>
+                <td id='Gr32443'>M 6 x 12</td>
                 <td id='BestM32443'>0</td>
             </tr>
             <tr>
@@ -7778,7 +7780,7 @@
                 <td id='Einh32472'>Stk</td>
                 <td id='Bez32472'>Dosierpumpenkopf mit Schnabelventil</td>
                 <td id='Gr32472'>EPDM</td>
-                <td id='BestM32472'>20</td>
+                <td id='BestM32472'>100</td>
             </tr>
             <tr>
                 <td id='32473'>32473</td>
@@ -8422,7 +8424,7 @@
                 <td id='Einh32564'>Stk</td>
                 <td id='Bez32564'>Winkel III ohne Anschlag</td>
                 <td id='Gr32564'>500/250</td>
-                <td id='BestM32564'>0</td>
+                <td id='BestM32564'>2</td>
             </tr>
             <tr>
                 <td id='32565'>32565</td>
@@ -8923,7 +8925,7 @@
             </tr>
             <tr>
                 <td id='32636'>32636</td>
-                <td id='Einh32636'>Rolle</td>
+                <td id='Einh32636'>Pkg</td>
                 <td id='Bez32636'>M&uuml;lls&auml;cke prof. blau Rolle &agrave; 25 Stk, M&uuml;lls&auml;cke prof. blau 80 my Rolle &agrave; 25 Stk, 10 Rollen / Pkg</td>
                 <td id='Gr32636'>120l</td>
                 <td id='BestM32636'>10</td>
@@ -9023,7 +9025,7 @@
                 <td id='32650'>32650</td>
                 <td id='Einh32650'>Stk</td>
                 <td id='Bez32650'>Halteklammer verz. f&uuml;r Montageschiene 39/52, 40/60, 40/80, 40/12</td>
-                <td id='Gr32650'>M12</td>
+                <td id='Gr32650'>M 12</td>
                 <td id='BestM32650'>0</td>
             </tr>
             <tr>
@@ -9246,7 +9248,7 @@
             <tr>
                 <td id='32682'>32682</td>
                 <td id='Einh32682'>lfm</td>
-                <td id='Bez32682'>LED-Band, linear, 3000 lm, IP20, 21 W/lfm - 3000lm/lfm - 4000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez32682'>LED-Band, linear, 21 W/lfm, 3000lm/lfm - 4000K, IP20, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
                 <td id='Gr32682'>3000 lm/840 10 x 1 mm</td>
                 <td id='BestM32682'>250</td>
             </tr>
@@ -9359,7 +9361,7 @@
                 <td id='32698'>32698</td>
                 <td id='Einh32698'>Stk</td>
                 <td id='Bez32698'>Fl&uuml;gelschraube Niro A2  316 Amerik.</td>
-                <td id='Gr32698'>M5x30</td>
+                <td id='Gr32698'>M 5 x 30</td>
                 <td id='BestM32698'>0</td>
             </tr>
             <tr>
@@ -9563,7 +9565,7 @@
                 <td id='Einh32727'>Stk</td>
                 <td id='Bez32727'>UVC - Elektronisches Vorschaltger&auml;t</td>
                 <td id='Gr32727'>EVG2x325W / 2,1A - PH S1</td>
-                <td id='BestM32727'>20</td>
+                <td id='BestM32727'>10</td>
             </tr>
             <tr>
                 <td id='32728'>32728</td>
@@ -9604,7 +9606,7 @@
                 <td id='32733'>32733</td>
                 <td id='Einh32733'>Stk</td>
                 <td id='Bez32733'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr32733'>M4x25</td>
+                <td id='Gr32733'>M 4 x 25</td>
                 <td id='BestM32733'>0</td>
             </tr>
             <tr>
@@ -9723,7 +9725,7 @@
                 <td id='32751'>32751</td>
                 <td id='Einh32751'>Stk</td>
                 <td id='Bez32751'>Zylinderschrauben DIN 84 4.8, verzinkt</td>
-                <td id='Gr32751'>M4 x 12</td>
+                <td id='Gr32751'>M 4 x 12</td>
                 <td id='BestM32751'>0</td>
             </tr>
             <tr>
@@ -9744,7 +9746,7 @@
                 <td id='32754'>32754</td>
                 <td id='Einh32754'>Stk</td>
                 <td id='Bez32754'>F&auml;cherscheiben DIN 6798 AZ, verzinkt</td>
-                <td id='Gr32754'>M4</td>
+                <td id='Gr32754'>M 4</td>
                 <td id='BestM32754'>0</td>
             </tr>
             <tr>
@@ -9975,8 +9977,8 @@
                 <td id='32787'>32787</td>
                 <td id='Einh32787'>Stk</td>
                 <td id='Bez32787'>Zuschnitte Trapezkanal Ecke</td>
-                <td id='Gr32787'>250/330 x 90&deg;</td>
-                <td id='BestM32787'>50</td>
+                <td id='Gr32787'>B: 330 x 90&deg;</td>
+                <td id='BestM32787'>45</td>
             </tr>
             <tr>
                 <td id='32788'>32788</td>
@@ -10528,14 +10530,14 @@
                 <td id='32866'>32866</td>
                 <td id='Einh32866'>Stk</td>
                 <td id='Bez32866'>Senkkopfschrauben NIRO Schlitz</td>
-                <td id='Gr32866'>M5 x 10</td>
+                <td id='Gr32866'>M 5 x 10</td>
                 <td id='BestM32866'>0</td>
             </tr>
             <tr>
                 <td id='32867'>32867</td>
                 <td id='Einh32867'>Stk</td>
                 <td id='Bez32867'>Innensechskantschrauben DIN 912 NIRO</td>
-                <td id='Gr32867'>M8 x 16</td>
+                <td id='Gr32867'>M 8 x 16</td>
                 <td id='BestM32867'>0</td>
             </tr>
             <tr>
@@ -10913,21 +10915,21 @@
                 <td id='32921'>32921</td>
                 <td id='Einh32921'>Stk</td>
                 <td id='Bez32921'>Leuchtmelder - Befestigungsadapter, Eaton</td>
-                <td id='Gr32921'>M22-A</td>
+                <td id='Gr32921'>M 22-A</td>
                 <td id='BestM32921'>20</td>
             </tr>
             <tr>
                 <td id='32922'>32922</td>
                 <td id='Einh32922'>Stk</td>
                 <td id='Bez32922'>Leuchtmelder - Schildtr&auml;ger, Eaton</td>
-                <td id='Gr32922'>M22S-ST-X</td>
+                <td id='Gr32922'>M 22S-ST-X</td>
                 <td id='BestM32922'>20</td>
             </tr>
             <tr>
                 <td id='32923'>32923</td>
                 <td id='Einh32923'>Stk</td>
                 <td id='Bez32923'>Leuchtmelder - Einlegeschild blank, Eaton</td>
-                <td id='Gr32923'>M22-XST</td>
+                <td id='Gr32923'>M 22-XST</td>
                 <td id='BestM32923'>100</td>
             </tr>
             <tr>
@@ -10998,7 +11000,7 @@
                 <td id='Einh32933'>Stk</td>
                 <td id='Bez32933'>Spitzzange, flach, 32 mm Backen</td>
                 <td id='Gr32933'>DM 3mm x 140 mm</td>
-                <td id='BestM32933'>0</td>
+                <td id='BestM32933'>2</td>
             </tr>
             <tr>
                 <td id='32934'>32934</td>
@@ -11241,7 +11243,7 @@
             <tr>
                 <td id='32968'>32968</td>
                 <td id='Einh32968'>lfm</td>
-                <td id='Bez32968'>LED-Band, linear, 3000 lm, IP00, 28,8 W/lfm - 3000lm/lfm - 6500K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez32968'>LED-Band, linear, 28,8 W/lfm, 3000lm/lfm - 6500K, IP00,Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
                 <td id='Gr32968'>3000 lm/865 8x1,5 mm</td>
                 <td id='BestM32968'>100</td>
             </tr>
@@ -11607,7 +11609,7 @@
                 <td id='Einh33020'>Stk</td>
                 <td id='Bez33020'>Anschlusskabel f&uuml;r Axiall&uuml;fter Papst</td>
                 <td id='Gr33020'>610 mm</td>
-                <td id='BestM33020'>25</td>
+                <td id='BestM33020'>12</td>
             </tr>
             <tr>
                 <td id='33021'>33021</td>
@@ -11634,7 +11636,7 @@
                 <td id='33024'>33024</td>
                 <td id='Einh33024'>Stk</td>
                 <td id='Bez33024'>Trapezh&auml;nger Form T mit Schallschutz</td>
-                <td id='Gr33024'>M8 x 105 mm</td>
+                <td id='Gr33024'>M 8 x 105 mm</td>
                 <td id='BestM33024'>0</td>
             </tr>
             <tr>
@@ -11683,7 +11685,7 @@
                 <td id='33031'>33031</td>
                 <td id='Einh33031'>Stk</td>
                 <td id='Bez33031'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr33031'>M4x10</td>
+                <td id='Gr33031'>M 4 x 10</td>
                 <td id='BestM33031'>1000</td>
             </tr>
             <tr>
@@ -11914,7 +11916,7 @@
                 <td id='33064'>33064</td>
                 <td id='Einh33064'>Stk</td>
                 <td id='Bez33064'>Maschinengewindebohrer DIN 371-B HSS-CO gr&uuml;n DL</td>
-                <td id='Gr33064'>M8</td>
+                <td id='Gr33064'>M 8</td>
                 <td id='BestM33064'>0</td>
             </tr>
             <tr>
@@ -11942,7 +11944,7 @@
                 <td id='33068'>33068</td>
                 <td id='Einh33068'>Stk</td>
                 <td id='Bez33068'>Kabeldurchf&uuml;hrung EPDM schwarz Snap-Light</td>
-                <td id='Gr33068'>M40 / 20 - 26 mm</td>
+                <td id='Gr33068'>M 40 / 20 - 26 mm</td>
                 <td id='BestM33068'>100</td>
             </tr>
             <tr>
@@ -12047,7 +12049,7 @@
                 <td id='33083'>33083</td>
                 <td id='Einh33083'>Stk</td>
                 <td id='Bez33083'>K&uuml;hlwasser-R&uuml;ckk&uuml;hler, Baureihe Aquacooly</td>
-                <td id='Gr33083'>Typ IK-V 07 mit Sonderpumpe</td>
+                <td id='Gr33083'>Typ et mit Sonderpumpe</td>
                 <td id='BestM33083'>5</td>
             </tr>
             <tr>
@@ -12117,7 +12119,7 @@
                 <td id='33094'>33094</td>
                 <td id='Einh33094'>Stk</td>
                 <td id='Bez33094'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr33094'>M4x8</td>
+                <td id='Gr33094'>M 4 x 8</td>
                 <td id='BestM33094'>1000</td>
             </tr>
             <tr>
@@ -12284,7 +12286,7 @@
             <tr>
                 <td id='33118'>33118</td>
                 <td id='Einh33118'>lfm</td>
-                <td id='Bez33118'>LED-Band, linear, 3000 lm, IP00, 27,6 W/lfm - 3000lm/lfm - 2700K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez33118'>LED-Band, linear, 27,6 W/lfm, 3000lm/lfm - 2700K, IP00, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
                 <td id='Gr33118'>3000 lm/827 8x1,5 mm</td>
                 <td id='BestM33118'>20</td>
             </tr>
@@ -12510,7 +12512,7 @@
                 <td id='Einh33151'>Stk</td>
                 <td id='Bez33151'>Kompressor Kit - Compressor Rebuild Kit</td>
                 <td id='Gr33151'>2660</td>
-                <td id='BestM33151'>5</td>
+                <td id='BestM33151'>20</td>
             </tr>
             <tr>
                 <td id='33152'>33152</td>
@@ -12600,7 +12602,7 @@
                 <td id='33165'>33165</td>
                 <td id='Einh33165'>Stk</td>
                 <td id='Bez33165'>Welko Schwei&szlig;bolzen rostfrei KN223</td>
-                <td id='Gr33165'>M4x30</td>
+                <td id='Gr33165'>M 4 x 30</td>
                 <td id='BestM33165'>1000</td>
             </tr>
             <tr>
@@ -12894,7 +12896,7 @@
                 <td id='33207'>33207</td>
                 <td id='Einh33207'>Stk</td>
                 <td id='Bez33207'>Isolierh&uuml;lsen SR 5743</td>
-                <td id='Gr33207'>M8 x 2,4</td>
+                <td id='Gr33207'>M 8 x 2,4</td>
                 <td id='BestM33207'>0</td>
             </tr>
             <tr>
@@ -13146,7 +13148,7 @@
                 <td id='33244'>33244</td>
                 <td id='Einh33244'>Pkg</td>
                 <td id='Bez33244'>M&uuml;lls&auml;cke, 10 x 50 St</td>
-                <td id='Gr33244'>M 25l</td>
+                <td id='Gr33244'>M - 25l</td>
                 <td id='BestM33244'>1</td>
             </tr>
             <tr>
@@ -13245,7 +13247,7 @@
                 <td id='Einh33258'>Stk</td>
                 <td id='Bez33258'>Kohleb&uuml;rste f&uuml;r Makita &agrave; 2 Stk</td>
                 <td id='Gr33258'>CB-153</td>
-                <td id='BestM33258'>0</td>
+                <td id='BestM33258'>5</td>
             </tr>
             <tr>
                 <td id='33259'>33259</td>
@@ -13299,7 +13301,7 @@
             <tr>
                 <td id='33266'>33266</td>
                 <td id='Einh33266'>lfm</td>
-                <td id='Bez33266'>LED-Band, linear, 2880 lm, IP20, 31,7 W/lfm - 2880lm/lfm - 3000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;, CRI>90</td>
+                <td id='Bez33266'>LED-Band, linear, 31,7 W/lfm, 2880lm/lfm - 3000K, lm, IP20, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;, CRI>90</td>
                 <td id='Gr33266'>2880 lm/930 8x1,5 mm</td>
                 <td id='BestM33266'>100</td>
             </tr>
@@ -13502,14 +13504,14 @@
             <tr>
                 <td id='33295'>33295</td>
                 <td id='Einh33295'>lfm</td>
-                <td id='Bez33295'>LED-Band, linear, 1850 lm, IP00, 15,3 W/lfm - 1850lm/lfm - 3000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez33295'>LED-Band, linear, 15,3 W/lfm, 1850lm/lfm - 3000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;, IP00</td>
                 <td id='Gr33295'>1850 lm/830 8x1,5 mm</td>
                 <td id='BestM33295'>0</td>
             </tr>
             <tr>
                 <td id='33296'>33296</td>
                 <td id='Einh33296'>lfm</td>
-                <td id='Bez33296'>LED-Band, linear, 2000 lm, IP00, 15,3 W/lfm - 2000lm/lfm - 4000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez33296'>LED-Band, linear, 15,3 W/lfm, 2000lm/lfm - 4000K, IP00, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
                 <td id='Gr33296'>2000 lm/840 8x1,5 mm</td>
                 <td id='BestM33296'>0</td>
             </tr>
@@ -13558,7 +13560,7 @@
             <tr>
                 <td id='33303'>33303</td>
                 <td id='Einh33303'>lfm</td>
-                <td id='Bez33303'>LED-Band, linear, 3000 lm, IP00, 24 W/lfm - 2780/lfm - 3000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
+                <td id='Bez33303'>LED-Band, linear, 24 W/lfm, 2780/lfm - 3000K, IP00, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;</td>
                 <td id='Gr33303'>2780 lm/830 8x1,5 mm</td>
                 <td id='BestM33303'>0</td>
             </tr>
@@ -13608,7 +13610,7 @@
                 <td id='33310'>33310</td>
                 <td id='Einh33310'>Stk</td>
                 <td id='Bez33310'>Wahltaste 2-stell.IP66 rastend EATON</td>
-                <td id='Gr33310'>M22-WRK</td>
+                <td id='Gr33310'>M 22-WRK</td>
                 <td id='BestM33310'>0</td>
             </tr>
             <tr>
@@ -13859,7 +13861,7 @@
             <tr>
                 <td id='33346'>33346</td>
                 <td id='Einh33346'>lfm</td>
-                <td id='Bez33346'>LED-Band RGB, linear, 600 lm, IP00, 14,4W/lfm  470-625nm COLOR 5m</td>
+                <td id='Bez33346'>LED-Band RGB, linear, 14,4W/lfm, 600 lm, 470-625nm COLOR 5m, IP00</td>
                 <td id='Gr33346'>600 lm/RGB 8x2,0 mm</td>
                 <td id='BestM33346'>0</td>
             </tr>
@@ -13883,6 +13885,62 @@
                 <td id='Bez33349'>HM-Rotorfr&auml;serbox, 5-teilig Premium 10 mm</td>
                 <td id='Gr33349'>Form B,C,D E,G Zahung 6</td>
                 <td id='BestM33349'>2</td>
+            </tr>
+            <tr>
+                <td id='33350'>33350</td>
+                <td id='Einh33350'>Stk</td>
+                <td id='Bez33350'>S&auml;ulenring aus 2mm Alu RAL9010 25x25x30x20</td>
+                <td id='Gr33350'>&empty; 402 mm</td>
+                <td id='BestM33350'>0</td>
+            </tr>
+            <tr>
+                <td id='33351'>33351</td>
+                <td id='Einh33351'>lfm</td>
+                <td id='Bez33351'>LED-Band, linear, 20 W/lfm, 3000lm/lfm, 4000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;, IP20</td>
+                <td id='Gr33351'>3000 lm/840 10 x 1,6 mm</td>
+                <td id='BestM33351'>0</td>
+            </tr>
+            <tr>
+                <td id='33352'>33352</td>
+                <td id='Einh33352'>lfm</td>
+                <td id='Bez33352'>LED-Band, linear, 16 W/lfm - 2480lm/lfm - 4000K, Montage &uuml;ber 3M-W&auml;rmeleitklebeband, Abstrahlwinkel 120&deg;, IP20</td>
+                <td id='Gr33352'>2000 lm/840 10 x 1,6 mm</td>
+                <td id='BestM33352'>0</td>
+            </tr>
+            <tr>
+                <td id='33353'>33353</td>
+                <td id='Einh33353'>Stk</td>
+                <td id='Bez33353'>Dichtung FKM70, B&uuml;rkert KOMP-006-V014-F1-00637882</td>
+                <td id='Gr33353'>70x4,1 mm</td>
+                <td id='BestM33353'>0</td>
+            </tr>
+            <tr>
+                <td id='33354'>33354</td>
+                <td id='Einh33354'>Stk</td>
+                <td id='Bez33354'>Einsatzschiene 68/24 f&uuml;r Schechtel Abkantmaschine MAB310/CNC MA3385 BJ2001</td>
+                <td id='Gr33354'>68/24</td>
+                <td id='BestM33354'>0</td>
+            </tr>
+            <tr>
+                <td id='33355'>33355</td>
+                <td id='Einh33355'>Stk</td>
+                <td id='Bez33355'>Scharfschiene 45&deg; L:3100 mm f&uuml;r  Schechtel Abkantmaschine  MAB310/CNC - MA3385 BJ2001</td>
+                <td id='Gr33355'></td>
+                <td id='BestM33355'>0</td>
+            </tr>
+            <tr>
+                <td id='33356'>33356</td>
+                <td id='Einh33356'>Stk</td>
+                <td id='Bez33356'>Zylinderschrauben f&uuml;r Schienen Schechtl Abkantmaschine</td>
+                <td id='Gr33356'>M10 x 25</td>
+                <td id='BestM33356'>0</td>
+            </tr>
+            <tr>
+                <td id='33357'>33357</td>
+                <td id='Einh33357'>Stk</td>
+                <td id='Bez33357'>Pumpengeh&auml;use lasernNiro 1.4301, ungeschl., 1 mm</td>
+                <td id='Gr33357'>Pumpengeh&auml;use_04-2022.stp</td>
+                <td id='BestM33357'>0</td>
             </tr>
             <tr>
                 <td id='40101'>40101</td>
@@ -14995,7 +15053,7 @@
                 <td id='Einh52025'>Stk</td>
                 <td id='Bez52025'>Haubenflansch SONDER</td>
                 <td id='Gr52025'>HAF</td>
-                <td id='BestM52025'>0</td>
+                <td id='BestM52025'>2</td>
             </tr>
             <tr>
                 <td id='52097'>52097</td>
@@ -15182,7 +15240,7 @@
             <tr>
                 <td id='60007'>60007</td>
                 <td id='Einh60007'>lfm</td>
-                <td id='Bez60007'>U-Rahmen f&uuml;r Lexanpaneele RAL9010</td>
+                <td id='Bez60007'>U-Rahmen f&uuml;r PC-Paneel RAL9010</td>
                 <td id='Gr60007'>70/15 + 80/20</td>
                 <td id='BestM60007'>0</td>
             </tr>
@@ -16001,14 +16059,14 @@
             <tr>
                 <td id='60420'>60420</td>
                 <td id='Einh60420'>Stk</td>
-                <td id='Bez60420'>Paneel Lexan glasklar strukturiert</td>
+                <td id='Bez60420'>Paneel Polycarbonat glasklar strukturiert</td>
                 <td id='Gr60420'>B 500</td>
                 <td id='BestM60420'>0</td>
             </tr>
             <tr>
                 <td id='60421'>60421</td>
                 <td id='Einh60421'>Stk</td>
-                <td id='Bez60421'>Paneel Lexan glasklar unverg&uuml;tet</td>
+                <td id='Bez60421'>Paneel Polycarbonat glasklar unverg&uuml;tet</td>
                 <td id='Gr60421'>B 500</td>
                 <td id='BestM60421'>0</td>
             </tr>
@@ -16986,6 +17044,13 @@
                 <td id='BestM60709'>0</td>
             </tr>
             <tr>
+                <td id='60710'>60710</td>
+                <td id='Einh60710'>Stk</td>
+                <td id='Bez60710'>Ablaufpumpe MTC, im Nirogeh&auml;use</td>
+                <td id='Gr60710'></td>
+                <td id='BestM60710'>0</td>
+            </tr>
+            <tr>
                 <td id='60801'>60801</td>
                 <td id='Einh60801'>Stk</td>
                 <td id='Bez60801'>UVC-Installationsmodul 1000 m&sup3;/h</td>
@@ -17234,21 +17299,21 @@
                 <td id='60950'>60950</td>
                 <td id='Einh60950'>Stk</td>
                 <td id='Bez60950'>Leuchtmelder Eaton</td>
-                <td id='Gr60950'>M22 - rot</td>
+                <td id='Gr60950'>M 22 - rot</td>
                 <td id='BestM60950'>0</td>
             </tr>
             <tr>
                 <td id='60951'>60951</td>
                 <td id='Einh60951'>Stk</td>
                 <td id='Bez60951'>Leuchtmelder Eaton</td>
-                <td id='Gr60951'>M22 - gr&uuml;n</td>
+                <td id='Gr60951'>M 22 - gr&uuml;n</td>
                 <td id='BestM60951'>0</td>
             </tr>
             <tr>
                 <td id='60952'>60952</td>
                 <td id='Einh60952'>Stk</td>
                 <td id='Bez60952'>Leuchtmelder Eaton</td>
-                <td id='Gr60952'>M22 - gelb</td>
+                <td id='Gr60952'>M 22 - gelb</td>
                 <td id='BestM60952'>0</td>
             </tr>
             <tr>

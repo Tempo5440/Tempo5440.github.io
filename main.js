@@ -1,4 +1,5 @@
 let codes = [];
+var intZeitIntervall = 100;
 const seen = new Set();
 // Create new barcode detector
 const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
@@ -20,13 +21,9 @@ const codesProxy = new Proxy(codes, {
       return !d;
     })
     
-    // Select the container scanned
-    //const scanned = document.querySelector('#scanned')
-    //const temp = document.createElement('scaned-item')
-    //const format = document.createElement('span')
-    //const rawValue = document.createElement('span')
 
     //Scanergebnis eintragen und gefundenen Artikel anzeigen
+    beep();
     ArtNr.value = value.rawValue;
 		SucheArtNr = value.rawValue;
 		varEinheit = document.getElementById("Einh"+SucheArtNr).textContent;
@@ -37,21 +34,8 @@ const codesProxy = new Proxy(codes, {
 		ArtDatBez.textContent = varBez;
 		ArtDatGr.textContent = varGr;
     document.getElementById('Menge').value = varBestM;
-    
-    // Goes into the custom elements formate slot
-    format.setAttribute('slot', 'format');
-    format.innerHTML = value.format;
-    
-    // Goes into the custom elements raw slot 
-    rawValue.setAttribute('slot', 'raw');
-    rawValue.innerHTML = value.rawValue;
-
-    // Append elements to custom element
-    temp.appendChild(rawValue);
-    temp.appendChild(format);
-
-    // Append Custom element to scanned container
-    scanned.appendChild(temp);
+    clearInterval(myInterval);
+    video.pause();
     return true;
   }
 });
@@ -59,40 +43,27 @@ const codesProxy = new Proxy(codes, {
 // Get video element 
 const video = document.getElementById('video');
 
-//constraintsObject.facingMode = constraint;
-
-// Check for a camera
+// Kamera auswählen und auf rückseitige Kamera wechseln
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   const constraints = {
     video: true,
     video: {
       facingMode: {
         exact: "environment"
-      }, width: 1920, height: 1080
+      }, width: 480, height: 480
     },
     audio: false
   };
   
-
   // Start video stream
   navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
 }
 
-// Draw outline to canvas 
-/* --NOTE-- 
-  Some codes will not out line the whole barcode 
-  instead may have a thin line this is because for a lot of 
-  barcodes that is all that is needed.
-  if you would like to out line the whole code you can have 
-  a look at using the boundingBox object instead of 
-  the cornerPoints array in this example it is not used 
-  but my edit this to make a square around other codes
-  that do not get outlined :) 
-*/
+// Barcode-Ränder zeichnen 
 const drawCodePath = ({cornerPoints}) => {
   const canvas = document.querySelector('#canvas');
   const ctx = canvas.getContext('2d');
-  const strokeGradient = ctx.createLinearGradient(0, 0, canvas.scrollWidth, canvas.scrollHeight);
+  const strokeGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
   
   // Exit function and clear canvas if no corner points
   if (!cornerPoints) return ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -101,11 +72,12 @@ const drawCodePath = ({cornerPoints}) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Create new gradient
-  strokeGradient.addColorStop('0', '#ffffff');
-  strokeGradient.addColorStop('1', '#ff0000');
+  strokeGradient.addColorStop('0', 'red');
+  strokeGradient.addColorStop('1', 'red');
 
   // Define stoke styles
-  ctx.strokeStyle = strokeGradient;
+  ctx.strokeStyle = "red";
+  //ctx.strokeStyle = strokeGradient;
   ctx.lineWidth = 4;
 
   // Begin draw
@@ -133,6 +105,7 @@ const drawCodePath = ({cornerPoints}) => {
 
 
 
+
 // Detect code function 
 const detectCode = () => {
   barcodeDetector.detect(video).then(codes => {
@@ -142,16 +115,15 @@ const detectCode = () => {
     for (const barcode of codes)  {
       console.log(barcode)
       // Draw outline
-      drawCodePath(barcode);
+      //drawCodePath(barcode);
       
       // Code in seen set then exit loop 
-      //if (seen.has(barcode.rawValue)) return;
+       if (seen.has(barcode.rawValue)) return;
 
       // Save barcode to window to use later on
       // then push to the codes proxy
       window.barcodeVal = barcode.rawValue;
       codesProxy.push(barcode);
-
     }
   }).catch(err => {
     console.error(err);
@@ -159,5 +131,5 @@ const detectCode = () => {
 }
 
 // Run detect code function every 100 milliseconds
-setInterval(detectCode, 100);
+const myInterval = setInterval(detectCode, 100);
 
