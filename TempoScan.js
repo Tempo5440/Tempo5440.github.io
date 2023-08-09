@@ -8,7 +8,7 @@ function init() {
 	var sendButton = document.getElementById('senden');
 	sendButton.onclick = DatenSenden;
 	var scanButton = document.getElementById('scannen');
-	sendButton.onclick = ScanStarten;
+	scanButton.onclick = ScanStarten;
 
 
 	var eintraegeArray = HolEinträge();
