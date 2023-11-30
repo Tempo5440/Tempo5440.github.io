@@ -15,8 +15,6 @@ function init() {
 	sendButton.onclick = DatenSenden;
 	var scanButton = document.getElementById('scannen');
 	scanButton.onclick = ScanStarten;
-	var sendButtonInv = document.getElementById('sendenInv');
-	sendButtonInv.onclick = DatenSendenInv;
 }
 
 function ScanStarten() {
@@ -173,31 +171,6 @@ function DatenSenden(){
 	//Daten löschen
 	allesLöschen()
 }
-
-
-function DatenSendenInv(){
-	//<a href="mailto:office@tempo-luft.com
-	//?body=Hallo%20Fritz,%0D%0A%0D%0Aich%20wollte%20nur%20sagen,%20dass%20">
-    //MailSenden
-	//</a>   
-	// var BestList = document.getElementById("BestellListe").value
-	var body='Inventurliste:' + "\n" + 'ANFANG:' + "\n";	
-	var eintraegeArray = HolEinträge();
-	for (var i = 0; i < eintraegeArray.length; i++) {
-		var aufgabeNr = eintraegeArray[i];
-		var value = JSON.parse(localStorage[aufgabeNr]);
-		body+=('ArtNr:' + aufgabeNr + ';Menge:' + value.value) + 'EH'+ "\n";
-	}
-	var mailBetreff='Inventurliste ' + uhrzeit()
-	body+='ENDE'
-	//body+= BestList;
-	var to='office@tempo-luft.com'
-	location.href = "mailto:"+encodeURIComponent(to)+"?subject=" + encodeURIComponent(mailBetreff) + "&body=" + encodeURIComponent(body);
-	
-	//Daten löschen
-	allesLöschen()
-}
-
 
 
 function uhrzeit() {

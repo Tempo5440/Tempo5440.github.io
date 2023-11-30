@@ -1,9 +1,9 @@
 window.onload = init;
 
 function init() {
-	var eintraegeArray = HolEinträge();
-	for (var i = 0; i < eintraegeArray.length; i++) {
-		var aufgabeNr = eintraegeArray[i];
+	var eintraegeInvArray = HolEinträge();
+	for (var i = 0; i < eintraegeInvArray.length; i++) {
+		var aufgabeNr = eintraegeInvArray[i];
 		var value = JSON.parse(localStorage[aufgabeNr]);
 		insDOMschreiben(aufgabeNr, value);
 	}
@@ -25,18 +25,18 @@ function ScanStarten() {
 }
 
 function HolEinträge() {
-	var eintraegeArray = localStorage.getItem('eintraegeArray');
-	if (!eintraegeArray) {
-		eintraegeArray = [];
-		localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
+	var eintraegeInvArray = localStorage.getItem('eintraegeInvArray');
+	if (!eintraegeInvArray) {
+		eintraegeInvArray = [];
+		localStorage.setItem('eintraegeInvArray', JSON.stringify(eintraegeInvArray));
 	} else {
-		eintraegeArray = JSON.parse(eintraegeArray);
+		eintraegeInvArray = JSON.parse(eintraegeInvArray);
 	}
-	return eintraegeArray;
+	return eintraegeInvArray;
 }
 
 function ToDoHinzufügen() {
-	var eintraegeArray = HolEinträge();
+	var eintraegeInvArray = HolEinträge();
 	var varArtNr = document.getElementById('ArtNr')
 		.value;
     var varMenge = document.getElementById('Menge')
@@ -47,8 +47,8 @@ function ToDoHinzufügen() {
 			'value': varMenge
 		};
 		localStorage.setItem(aufgabeNr, JSON.stringify(aufgabeText));
-		eintraegeArray.push(aufgabeNr);
-		localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
+		eintraegeInvArray.push(aufgabeNr);
+		localStorage.setItem('eintraegeInvArray', JSON.stringify(eintraegeInvArray));
 		insDOMschreiben(aufgabeNr, aufgabeText);
 		document.getElementById('ArtNr')
 			.value = ' ';
@@ -62,15 +62,15 @@ function ToDoHinzufügen() {
 
 function toDoLöschen(e) {
 	var aufgabeNr = e.target.id;
-	var eintraegeArray = HolEinträge();
-	if (eintraegeArray) {
-		for (var i = 0; i < eintraegeArray.length; i++) {
-			if (aufgabeNr == eintraegeArray[i]) {
-				eintraegeArray.splice(i, 1);
+	var eintraegeInvArray = HolEinträge();
+	if (eintraegeInvArray) {
+		for (var i = 0; i < eintraegeInvArray.length; i++) {
+			if (aufgabeNr == eintraegeInvArray[i]) {
+				eintraegeInvArray.splice(i, 1);
 			}
 		}
 		localStorage.removeItem(aufgabeNr);
-		localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
+		localStorage.setItem('eintraegeInvArray', JSON.stringify(eintraegeInvArray));
 		ausDOMentfernen(aufgabeNr);
 	}
 }
@@ -132,7 +132,7 @@ function allesLöschen() {
 	for (var i = eintraege.length - 1; i >= 0; i--) {
 		ItemList.removeChild(eintraege[i]);
 	}
-	var eintraegeArray = HolEinträge();
+	var eintraegeInvArray = HolEinträge();
 }
 
 
@@ -149,29 +149,6 @@ function getArtDaten(){
 	
 }
 
-function DatenSenden(){
-	//<a href="mailto:office@tempo-luft.com
-	//?body=Hallo%20Fritz,%0D%0A%0D%0Aich%20wollte%20nur%20sagen,%20dass%20">
-    //MailSenden
-	//</a>   
-	// var BestList = document.getElementById("BestellListe").value
-	var body='Bestellliste:' + "\n" + 'ANFANG:' + "\n";	
-	var eintraegeArray = HolEinträge();
-	for (var i = 0; i < eintraegeArray.length; i++) {
-		var aufgabeNr = eintraegeArray[i];
-		var value = JSON.parse(localStorage[aufgabeNr]);
-		body+=('ArtNr:' + aufgabeNr + ';Menge:' + value.value) + 'EH'+ "\n";
-	}
-	var mailBetreff='Bestellliste ' + uhrzeit()
-	body+='ENDE'
-	//body+= BestList;
-	var to='office@tempo-luft.com'
-	location.href = "mailto:"+encodeURIComponent(to)+"?subject=" + encodeURIComponent(mailBetreff) + "&body=" + encodeURIComponent(body);
-	
-	//Daten löschen
-	allesLöschen()
-}
-
 
 function DatenSendenInv(){
 	//<a href="mailto:office@tempo-luft.com
@@ -180,9 +157,9 @@ function DatenSendenInv(){
 	//</a>   
 	// var BestList = document.getElementById("BestellListe").value
 	var body='Inventurliste:' + "\n" + 'ANFANG:' + "\n";	
-	var eintraegeArray = HolEinträge();
-	for (var i = 0; i < eintraegeArray.length; i++) {
-		var aufgabeNr = eintraegeArray[i];
+	var eintraegeInvArray = HolEinträge();
+	for (var i = 0; i < eintraegeInvArray.length; i++) {
+		var aufgabeNr = eintraegeInvArray[i];
 		var value = JSON.parse(localStorage[aufgabeNr]);
 		body+=('ArtNr:' + aufgabeNr + ';Menge:' + value.value) + 'EH'+ "\n";
 	}
