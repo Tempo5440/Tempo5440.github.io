@@ -151,7 +151,7 @@ function getArtDaten(){
 	
 }
 
-function DatenSenden (){
+function DatenSenden(){
 	//<a href="mailto:office@tempo-luft.com
 	//?body=Hallo%20Fritz,%0D%0A%0D%0Aich%20wollte%20nur%20sagen,%20dass%20">
     //MailSenden
@@ -175,7 +175,7 @@ function DatenSenden (){
 }
 
 
-function DatenSendenInv (){
+function DatenSendenInv(){
 	//<a href="mailto:office@tempo-luft.com
 	//?body=Hallo%20Fritz,%0D%0A%0D%0Aich%20wollte%20nur%20sagen,%20dass%20">
     //MailSenden
