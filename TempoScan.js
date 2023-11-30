@@ -172,7 +172,6 @@ function DatenSenden (){
 	
 	//Daten löschen
 	allesLöschen()
-
 }
 
 
@@ -197,7 +196,6 @@ function DatenSendenInv (){
 	
 	//Daten löschen
 	allesLöschen()
-
 }
 
 
