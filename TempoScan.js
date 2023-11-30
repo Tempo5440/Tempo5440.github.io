@@ -13,10 +13,10 @@ function init() {
 	clearButton.onclick = allesLöschen;
 	var sendButton = document.getElementById('senden');
 	sendButton.onclick = DatenSenden;
-	var sendButton = document.getElementById('sendenInv');
-	sendButton.onclick = DatenSendenInv;
 	var scanButton = document.getElementById('scannen');
 	scanButton.onclick = ScanStarten;
+	var sendButton = document.getElementById('sendenInv');
+	sendButton.onclick = DatenSendenInv;
 }
 
 function ScanStarten() {
