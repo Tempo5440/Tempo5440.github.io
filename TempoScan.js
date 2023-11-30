@@ -15,8 +15,8 @@ function init() {
 	sendButton.onclick = DatenSenden;
 	var scanButton = document.getElementById('scannen');
 	scanButton.onclick = ScanStarten;
-	var sendButton = document.getElementById('sendenInv');
-	sendButton.onclick = DatenSendenInv;
+	var sendButtonInv = document.getElementById('sendenInv');
+	sendButtonInv.onclick = DatenSendenInv;
 }
 
 function ScanStarten() {
