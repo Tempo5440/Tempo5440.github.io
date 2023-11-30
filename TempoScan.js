@@ -1,6 +1,12 @@
 window.onload = init;
 
 function init() {
+	var eintraegeArray = HolEinträge();
+	for (var i = 0; i < eintraegeArray.length; i++) {
+		var aufgabeNr = eintraegeArray[i];
+		var value = JSON.parse(localStorage[aufgabeNr]);
+		insDOMschreiben(aufgabeNr, value);
+	}
 	var button = document.getElementById('mehr');
 	button.onclick = ToDoHinzufügen;
 	var clearButton = document.getElementById('loeschen');
@@ -11,14 +17,6 @@ function init() {
 	sendButton.onclick = DatenSendenInv;
 	var scanButton = document.getElementById('scannen');
 	scanButton.onclick = ScanStarten;
-
-
-	var eintraegeArray = HolEinträge();
-	for (var i = 0; i < eintraegeArray.length; i++) {
-		var aufgabeNr = eintraegeArray[i];
-		var value = JSON.parse(localStorage[aufgabeNr]);
-		insDOMschreiben(aufgabeNr, value);
-	}
 }
 
 function ScanStarten() {
