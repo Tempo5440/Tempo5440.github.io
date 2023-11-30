@@ -28,7 +28,6 @@ function ScanStarten() {
 
 }
 
-
 function HolEinträge() {
 	var eintraegeArray = localStorage.getItem('eintraegeArray');
 	if (!eintraegeArray) {
