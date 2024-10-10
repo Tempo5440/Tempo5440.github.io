@@ -35,10 +35,11 @@ const codesProxy = new Proxy(codes, {
 		ArtDatBez.textContent = varBez;
 		ArtDatGr.textContent = varGr;
     document.getElementById('Menge').value = varBestM;
-    if (varAusl = '1'){
-      document.getElementById('idAuslauf').style.display = 'block'
+    var x = document.getElementById('idAuslauf');
+    if (varAusl == '1') {
+      x.style.display = 'block';
     } else {
-      document.getElementById('idAuslauf').style.display = 'none'
+      x.style.display = 'none';
     }   
     clearInterval(myInterval);
     video.pause();

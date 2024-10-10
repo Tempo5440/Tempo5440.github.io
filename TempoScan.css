@@ -147,6 +147,8 @@ p {
     color: red;
     font-size: 1em;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 .fontTempoWhite {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
