@@ -131,7 +131,6 @@ p {
     color: rgb(0, 138, 203);
     font-size: xx-large;
 }
-
 .fontTempoBlack {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
@@ -140,6 +139,12 @@ p {
 .fontTempoBlackBold {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
+    font-size: 1em;
+    font-weight: bold;
+}
+.fontTempoRedBold {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: red;
     font-size: 1em;
     font-weight: bold;
 }

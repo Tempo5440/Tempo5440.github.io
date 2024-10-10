@@ -30,10 +30,16 @@ const codesProxy = new Proxy(codes, {
 		varBez = document.getElementById("Bez"+SucheArtNr).textContent;
 		varGr = document.getElementById("Gr"+SucheArtNr).textContent;
     varBestM = document.getElementById("BestM"+SucheArtNr).textContent;
+    varAusl = document.getElementById("Ausl"+SucheArtNr).textContent;
 		ArtDatEinh.textContent = varEinheit;
 		ArtDatBez.textContent = varBez;
 		ArtDatGr.textContent = varGr;
     document.getElementById('Menge').value = varBestM;
+    if (varAusl = '1'){
+      document.getElementById('idAuslauf').style.display = 'block'
+    } else {
+      document.getElementById('idAuslauf').style.display = 'none'
+    }   
     clearInterval(myInterval);
     video.pause();
     return true;
