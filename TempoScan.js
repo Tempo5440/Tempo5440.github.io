@@ -15,13 +15,17 @@ function init() {
 	sendButton.onclick = DatenSenden;
 	var scanButton = document.getElementById('scannen');
 	scanButton.onclick = ScanStarten;
-}
+	var inventButton = document.getElementById('invent');
+	inventButton.onclick = weiterleitungInventur;}
 
 function ScanStarten() {
 		// Get video element 
 		const video1 = document.getElementById('video');
 		video1.play();
+}
 
+function weiterleitungInventur() {
+  window.location.href = "tempo5440.github.io/inventur.html";
 }
 
 function HolEinträge() {
