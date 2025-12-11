@@ -25,7 +25,7 @@ function ScanStarten() {
 }
 
 function weiterleitungInventur() {
-  window.location.href = "tempo5440.github.io/inventur.html";
+  window.location.href = "https://tempo5440.github.io/inventur.html";
 }
 
 function HolEinträge() {
