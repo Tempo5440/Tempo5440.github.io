@@ -164,26 +164,30 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintraege = document.getElementById('eintraege');
     if (!eintraege) return;
 
-    const einhElem = document.getElementById('Einh' + aufgabeNr);
-    const bezElem = document.getElementById('Bez' + aufgabeNr);
-    const grElem = document.getElementById('Gr' + aufgabeNr);
+    // 1. Daten direkt aus dem globalen JSON-Arbeitsspeicher (artikelStammdaten) holen
+    const artikel = artikelStammdaten[aufgabeNr];
+    
+    // Fallback-Werte setzen, falls die Artikelnummer im JSON nicht existiert
+    const varEinheit = artikel ? (artikel.einh || '-') : '-';
+    const varBez     = artikel ? (artikel.bez || 'Unbekannter Artikel') : 'Unbekannter Artikel';
+    const varGr      = artikel ? (artikel.gr || '-') : '-';
 
-    const varEinheit = einhElem ? einhElem.textContent : '-';
-    const varBez = bezElem ? bezElem.textContent : 'Unbekannter Artikel';
-    const varGr = grElem ? grElem.textContent : '-';
-
+    // 2. Bestehende Zeile löschen, falls der Artikel aktualisiert wird
     const alteZeile = document.getElementById('X' + aufgabeNr);
     if (alteZeile) alteZeile.remove();
 
+    // 3. Neue Tabellenzeile (tr) erstellen
     const eintrNeueZeile = document.createElement('tr');
     eintrNeueZeile.id = 'X' + aufgabeNr;
 
+    // 4. Lösch-Zelle (td) erstellen und Event-Listener binden
     const eintrDel = document.createElement('td');
     eintrDel.textContent = 'X';
     eintrDel.id = aufgabeNr;
     eintrDel.style.cursor = 'pointer';
     eintrDel.addEventListener('click', todoLoeschen);
 
+    // 5. restliche Datenzellen (td) erstellen
     const eintrArtNr = document.createElement('td');
     eintrArtNr.textContent = aufgabeNr;
 
@@ -199,6 +203,7 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintrGr = document.createElement('td');
     eintrGr.textContent = varGr;
 
+    // 6. Zellen der Zeile hinzufügen
     eintrNeueZeile.appendChild(eintrDel);
     eintrNeueZeile.appendChild(eintrArtNr);
     eintrNeueZeile.appendChild(eintrMenge);
@@ -206,8 +211,10 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     eintrNeueZeile.appendChild(eintrBez);
     eintrNeueZeile.appendChild(eintrGr);
 
+    // 7. Zeile in die Tabelle einfügen
     eintraege.appendChild(eintrNeueZeile);
 }
+
 
 function ausDOMentfernen(aufgabeNr) {
     const eintrag = document.getElementById('X' + aufgabeNr);
