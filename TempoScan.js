@@ -29,7 +29,7 @@ async function init() {
     }
 
     // 4. Bereits gescannte Artikel aus dem LocalStorage in der Liste anzeigen
-    ladenUndRendern();
+    //ladenUndRendern();
 }
 
 // Lädt die JSON-Datei einmalig beim App-Start in den Speicher
