@@ -1,0 +1,10 @@
+{
+  "10101": { "einh": "Stk", "bez": "T10-Haubenkörper", "gr": "", "bestM": 0, "ausl": true },
+  "10102": { "einh": "Stk", "bez": "T10-Kondensatteil", "gr": "", "bestM": 0, "ausl": true },
+  "10103": { "einh": "Stk", "bez": "T10-Abscheideteil", "gr": "", "bestM": 0, "ausl": true },
+  "10104": { "einh": "Stk", "bez": "T10-Umlenkteil", "gr": "", "bestM": 0, "ausl": true },
+  "10105": { "einh": "Stk", "bez": "T10-Deckel", "gr": "", "bestM": 0, "ausl": true },
+  "10106": { "einh": "Stk", "bez": "T10-Pumpenabdeckung", "gr": "", "bestM": 0, "ausl": true },
+  "10107": { "einh": "Stk", "bez": "Sensorhalter für Umbau von Schwimmerschalter auf Sensoren", "gr": "T-SA01", "bestM": 0, "ausl": true },
+  "30010": { "einh": "m", "bez": "Flanschprofile NIRO WNr. 1.4301", "gr": "P 20", "bestM": 325, "ausl": false }
+}
