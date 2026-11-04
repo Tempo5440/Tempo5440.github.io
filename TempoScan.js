@@ -4,7 +4,7 @@ let artikelStammdaten = {};
 // Wartet, bis das HTML vollständig geladen ist
 document.addEventListener('DOMContentLoaded', init);
 
-function init() {
+async function init() {
     // 1. Stammdaten asynchron aus der JSON-Datei laden
     await ladeStammdaten();
 
@@ -150,6 +150,7 @@ function ladenUndRendern() {
         }
     });
 }
+
 function todoLoeschen(e) {
     const aufgabeNr = e.target.id;
     let eintraegeArray = holEintraege();
