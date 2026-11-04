@@ -4,7 +4,7 @@ let artikelStammdaten = {};
 // Wartet, bis das HTML vollständig geladen ist
 document.addEventListener('DOMContentLoaded', init);
 
-async function init() {
+function init() {
     // 1. Stammdaten asynchron aus der JSON-Datei laden
     await ladeStammdaten();
 
