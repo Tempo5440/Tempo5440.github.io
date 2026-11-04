@@ -7,26 +7,19 @@ document.addEventListener('DOMContentLoaded', init);
 async function init() {
     // 1. Stammdaten asynchron aus der JSON-Datei laden
     await ladeStammdaten();
-	
-	var button = document.getElementById('mehr');
-	button.onclick = ToDoHinzufügen;
-	var clearButton = document.getElementById('loeschen');
-	clearButton.onclick = allesLöschen;
-	var sendButton = document.getElementById('senden');
-	sendButton.onclick = DatenSenden;
 
     // 2. Event-Listener für alle Buttons registrieren
- //   const buttons = {
-  //       'mehr': todoHinzufuegen,
-  //       'loeschen': allesLoeschen,
-  //       'senden': datenSenden,
-  //       'scannen': scanStarten,
-  //       'invent': weiterleitungInventur
-  //  };
+    const buttons = {
+        'mehr': todoHinzufuegen,
+        'loeschen': allesLoeschen,
+        'senden': datenSenden,
+        'scannen': scanStarten,
+        'invent': weiterleitungInventur
+    };
 
- //   Object.entries(buttons).forEach(([id, handler]) => {
-  //       document.getElementById(id)?.addEventListener('click', handler);
-  //   });
+    Object.entries(buttons).forEach(([id, handler]) => {
+        document.getElementById(id)?.addEventListener('click', handler);
+    });
 
     // 3. Überwachung für manuelle Eingaben und Scanner-Inputs einrichten
     const artNrInput = document.getElementById('ArtNr');
