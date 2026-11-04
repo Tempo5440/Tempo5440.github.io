@@ -1,181 +1,142 @@
-// Zustand & Konfiguration
-const codes = [];
+let codes = [];
+var intZeitIntervall = 100;
 const seen = new Set();
-const scanIntervalTime = 100;
-let myInterval = null;
-
-// Barcode Detector initialisieren
+// Create new barcode detector
 const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
 
-// DOM Elemente cachen
+// Codes proxy/state
+const codesProxy = new Proxy(codes, {
+  set (target, prop, value, receiver) {
+    // Throw err if value is a number
+    // Stops from saving undefined codes
+    if (typeof value === 'number') throw value;
+    
+    target.push(value);
+
+    // Check if code has already been scanned
+    target = target.filter((c) => {
+      if (c.rawValue !== window.barcodeVal) return c;
+      const d = seen.has(c.rawValue);
+      seen.add(c.rawValue);
+      return !d;
+    })
+    
+
+    //Scanergebnis eintragen und gefundenen Artikel anzeigen
+    beep();
+    ArtNr.value = value.rawValue;
+		SucheArtNr = value.rawValue;
+		varEinheit = document.getElementById("Einh"+SucheArtNr).textContent;
+		varBez = document.getElementById("Bez"+SucheArtNr).textContent;
+		varGr = document.getElementById("Gr"+SucheArtNr).textContent;
+    varBestM = document.getElementById("BestM"+SucheArtNr).textContent;
+    varAusl = document.getElementById("Ausl"+SucheArtNr).textContent;
+		ArtDatEinh.textContent = varEinheit;
+		ArtDatBez.textContent = varBez;
+		ArtDatGr.textContent = varGr;
+    document.getElementById('Menge').value = varBestM;
+    var x = document.getElementById('idAuslauf');
+    if (varAusl == '1') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }   
+    clearInterval(myInterval);
+    video.pause();
+    return true;
+  }
+});
+
+// Get video element 
 const video = document.getElementById('video');
-const canvas = document.querySelector('#canvas');
-const artNrInput = document.getElementById('ArtNr');
-const mengeInput = document.getElementById('Menge');
-const idAuslauf = document.getElementById('idAuslauf');
 
-const artDatEinh = document.getElementById('ArtDatEinh');
-const artDatBez = document.getElementById('ArtDatBez');
-const artDatGr = document.getElementById('ArtDatGr');
-
-/**
- * Verarbeitet einen erfolgreich erkannten und neuen Barcode
- */
-function onBarcodeDetected(barcode) {
-    const codeValue = barcode.rawValue;
-    
-    // In den lokalen Speicher (Array & Set) pushen
-    codes.push(barcode);
-    seen.add(codeValue);
-    
-    // Signalton abspielen
-    if (typeof beep === 'function') beep();
-    
-    // Eingabefeld befüllen
-    if (artNrInput) artNrInput.value = codeValue;
-    
-    // Stammdaten aus dem DOM auslesen (Sicherheitsabfragen mit ?.)
-    const einhElem = document.getElementById("Einh" + codeValue);
-    const bezElem = document.getElementById("Bez" + codeValue);
-    const grElem = document.getElementById("Gr" + codeValue);
-    const bestMElem = document.getElementById("BestM" + codeValue);
-    const auslElem = document.getElementById("Ausl" + codeValue);
-    
-    // Daten anzeigen (Fallbacks definieren, falls Artikel nicht existiert)
-    if (artDatEinh) artDatEinh.textContent = einhElem ? einhElem.textContent : '-';
-    if (artDatBez) artDatBez.textContent = bezElem ? bezElem.textContent : 'Unbekannter Artikel';
-    if (artDatGr) artDatGr.textContent = grElem ? grElem.textContent : '-';
-    if (mengeInput) mengeInput.value = bestMElem ? bestMElem.textContent : '';
-    
-    // Auslaufartikel-Warnung prüfen (prüft auf den String "Wahr")
-    if (idAuslauf) {
-        const isAuslauf = auslElem ? auslElem.textContent.trim() === 'Wahr' : false;
-        idAuslauf.style.display = isAuslauf ? 'block' : 'none';
-    }
-    
-    // Scanner stoppen
-    stopScanner();
+// Kamera auswählen und auf rückseitige Kamera wechseln
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  const constraints = {
+    video: true,
+    video: {
+      facingMode: {
+        exact: "environment"
+      }, width: 480, height: 480
+    },
+    audio: false
+  };
+  
+  // Start video stream
+  navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
 }
 
-/**
- * Zeichnet den roten Rahmen um den erkannten Barcode
- */
-const drawCodePath = ({ cornerPoints }) => {
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    // Canvas leeren, wenn keine Punkte übergeben wurden
-    if (!cornerPoints || cornerPoints.length === 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        return;
-    }
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    
-    for (const [i, { x, y }] of cornerPoints.entries()) {
-        if (i === 0) {
-            ctx.moveTo(x - ctx.lineWidth / 2, y);
-            continue;
-        }
-        ctx.lineTo(x, y);
-        
-        // Pfad zur Startposition schließen
-        if (i === cornerPoints.length - 1) {
-            ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
-        }
-    }
-    ctx.stroke();
-};
+// Barcode-Ränder zeichnen 
+const drawCodePath = ({cornerPoints}) => {
+  const canvas = document.querySelector('#canvas');
+  const ctx = canvas.getContext('2d');
+  const strokeGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  
+  // Exit function and clear canvas if no corner points
+  if (!cornerPoints) return ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-/**
- * Scan-Funktion (wird im Intervall aufgerufen)
- */
+  // Clear canvas for new redraw
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Create new gradient
+  strokeGradient.addColorStop('0', 'red');
+  strokeGradient.addColorStop('1', 'red');
+
+  // Define stoke styles
+  ctx.strokeStyle = "red";
+  //ctx.strokeStyle = strokeGradient;
+  ctx.lineWidth = 4;
+
+  // Begin draw
+  ctx.beginPath();
+
+  // Draw code outline path
+  for (const [i, {x, y}] of cornerPoints.entries()) {
+    if (i === 0) {
+      // Move x half of the stroke width back 
+      // makes the start and end corner line up
+      ctx.moveTo(x - ctx.lineWidth/2, y);
+      continue;
+    }
+
+    // Draw line from current pos to x, y
+    ctx.lineTo(x, y);
+
+    // Complete square draw to starting position
+    if (i === cornerPoints.length-1) ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
+  }
+
+  // Make path to stroke
+  ctx.stroke();
+}
+
+
+
+
+// Detect code function 
 const detectCode = () => {
-    if (!video || video.paused || video.ended) return;
+  barcodeDetector.detect(video).then(codes => {
+    // If no codes exit function and clear canvas
+    if (codes.length === 0) return drawCodePath({});
+    
+    for (const barcode of codes)  {
+      console.log(barcode)
+      // Draw outline
+      //drawCodePath(barcode);
+      
+      // Code in seen set then exit loop 
+       if (seen.has(barcode.rawValue)) return;
 
-    barcodeDetector.detect(video)
-        .then(detectedCodes => {
-            if (detectedCodes.length === 0) {
-                return drawCodePath({});
-            }
-            
-            for (const barcode of detectedCodes) {
-                console.log("Barcode gefunden:", barcode);
-                
-                // Optional: Umriss zeichnen (falls gewünscht, auskommentieren)
-                // drawCodePath(barcode);
-                
-                // Wenn der Code in dieser Session bereits verarbeitet wurde, überspringen
-                if (seen.has(barcode.rawValue)) continue;
-                
-                // Erfolgskette auslösen
-                onBarcodeDetected(barcode);
-                break; // Schleife abbrechen, da Scanner jetzt stoppt
-            }
-        })
-        .catch(err => {
-            console.error("Fehler bei der Barcode-Erkennung:", err);
-        });
-};
-
-/**
- * Kamera-Stream starten und Scanner aktivieren
- */
-function startScanner() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const constraints = {
-            video: {
-                facingMode: "environment", // "environment" bevorzugt Umgebungskamera ohne harten Fehler am PC
-                width: { ideal: 480 },
-                height: { ideal: 480 }
-            },
-            audio: false
-        };
-        
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(stream => {
-                if (video) {
-                    video.srcObject = stream;
-                    video.play()
-                        .then(() => {
-                            // Intervall starten, sobald das Video wirklich läuft
-                            if (!myInterval) {
-                                myInterval = setInterval(detectCode, scanIntervalTime);
-                            }
-                        })
-                        .catch(e => console.error("Video-Play fehlgeschlagen:", e));
-                }
-            })
-            .catch(err => {
-                console.error("Kamera-Zugriff verweigert oder nicht verfügbar:", err);
-            });
+      // Save barcode to window to use later on
+      // then push to the codes proxy
+      window.barcodeVal = barcode.rawValue;
+      codesProxy.push(barcode);
     }
+  }).catch(err => {
+    console.error(err);
+  })
 }
 
-/**
- * Kamera stoppen und Intervall löschen
- */
-function stopScanner() {
-    if (myInterval) {
-        clearInterval(myInterval);
-        myInterval = null;
-    }
-    if (video) {
-        video.pause();
-        const stream = video.srcObject;
-        if (stream) {
-            // Alle Kamera-Tracks sauber beenden (schaltet die Handy-Kamera-LED ab)
-            stream.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-        }
-    }
-    // Canvas nach dem Stoppen leeren
-    drawCodePath({});
-}
+// Run detect code function every 100 milliseconds
+const myInterval = setInterval(detectCode, 100);
 
-// Scanner beim Laden oder per Funktionsaufruf starten
-// startScanner();
