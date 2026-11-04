@@ -271,11 +271,6 @@ function fuehrendeNull(zahl) {
     return zahl < 10 ? '0' + zahl : zahl;  
 }
 
-function beep() {
-    // Die Audio-Daten für den Beep-Sound finden sich in den ursprünglichen Web-Dokumenten.
-    const snd = new Audio("data:audio/wav;base64,...");
-    snd.play().catch(e => console.log("Audio-Play blockiert, erfordert vorherige Nutzerinteraktion."));
-}
 
 
 

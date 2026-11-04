@@ -3,7 +3,7 @@ var intZeitIntervall = 100;
 const seen = new Set();
 
 // Create new barcode detector
-const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
+const barcodeDetector = new barcodeDetector({ formats: ['code_39'] });
 
 // Codes proxy/state
 const codesProxy = new Proxy(codes, {
@@ -128,3 +128,10 @@ const detectCode = () => {
 
 // Run detect code function every 100 milliseconds
 const myInterval = setInterval(detectCode, 100);
+
+function beep() {
+    // Die Audio-Daten für den Beep-Sound finden sich in den ursprünglichen Web-Dokumenten.
+    const snd = new Audio("data:audio/wav;base64,...");
+    snd.play().catch(e => console.log("Audio-Play blockiert, erfordert vorherige Nutzerinteraktion."));
+}
+
