@@ -222,7 +222,7 @@ function ausDOMentfernen(aufgabeNr) {
     if (eintrag) eintrag.remove();
 }
 
-function allesLöschen() {
+function allesLoeschen() {
     localStorage.clear();
     const itemList = document.getElementById('eintraege');
     if (itemList) {
