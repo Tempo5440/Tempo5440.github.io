@@ -1,163 +1,46 @@
-// Wartet, bis das HTML vollständig geladen ist
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM geladen. Initialisiere Buttons...");
-    initButtons();
-    // Startet den Scanner automatisch beim Laden
-    startScanner(); 
-});
+document.addEventListener('DOMContentLoaded', init);
 
-function initButtons() {
-    // Falls ein Button im HTML fehlt, verhindert das "?." einen Skript-Absturz
+function init() {
+    const eintraegeArray = holEintraege();
+    eintraegeArray.forEach(aufgabeNr => {
+        const itemStr = localStorage.getItem(aufgabeNr);
+        if (itemStr) {
+            try {
+                const value = JSON.parse(itemStr);
+                insDOMschreiben(aufgabeNr, value);
+            } catch (e) {
+                console.error(`Fehler beim Parsen von Artikel ${aufgabeNr}:`, e);
+            }
+        }
+    });
+
     document.getElementById('mehr')?.addEventListener('click', todoHinzufuegen);
-    document.getElementById('loeschen')?.addEventListener('click', allesLöschen);
+    document.getElementById('loeschen')?.addEventListener('click', allesLoeschen);
     document.getElementById('senden')?.addEventListener('click', datenSenden);
-    document.getElementById('scannen')?.addEventListener('click', startScanner);
+    document.getElementById('scannen')?.addEventListener('click', scanStarten);
     document.getElementById('invent')?.addEventListener('click', weiterleitungInventur);
-    
-    // Event-Listener für das manuelle Eintippen einer Artikelnummer
-    document.getElementById('ArtNr')?.addEventListener('input', getArtDaten);
 }
 
-// Globaler Zustand für den Scanner
-const codes = [];
-const seen = new Set();
-const scanIntervalTime = 100;
-let myInterval = null;
-
-// Barcode-Detector (Code 39 für Tempo-Etiketten)
-let barcodeDetector = null;
-try {
-    barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
-} catch (e) {
-    console.error("BarcodeDetector wird von diesem Browser/Gerät nicht nativ unterstützt.", e);
+function scanStarten() {
+    const video1 = document.getElementById('video');
+    if (video1) video1.play().catch(err => console.error("Video-Play fehlgeschlagen:", err));
 }
 
-function startScanner() {
-    console.log("Scanner-Start angefordert...");
-    const video = document.getElementById('video');
-    
-    if (!video) {
-        console.error("HTML-Video-Element wurde nicht gefunden!");
-        return;
-    }
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const constraints = {
-            video: {
-                facingMode: "environment", // Bevorzugt die Rückkamera am Handy
-                width: { ideal: 480 },
-                height: { ideal: 480 }
-            },
-            audio: false
-        };
-        
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(stream => {
-                video.srcObject = stream;
-                video.play()
-                    .then(() => {
-                        console.log("Kamera-Stream läuft.");
-                        // Intervall starten, falls der Browser Barcodes unterstützt
-                        if (barcodeDetector && !myInterval) {
-                            myInterval = setInterval(detectCode, scanIntervalTime);
-                        }
-                    })
-                    .catch(e => console.error("Kamera-Wiedergabe blockiert:", e));
-            })
-            .catch(err => {
-                console.error("Kamera-Zugriff fehlgeschlagen:", err);
-                alert("Kamera konnte nicht gestartet werden. Bitte Berechtigung prüfen.");
-            });
-    } else {
-        alert("Ihr Browser unterstützt keinen Kamera-Zugriff.");
-    }
+function weiterleitungInventur() {
+    window.location.href = "https://tempo5440.github.io/inventur.html";
 }
 
-function stopScanner() {
-    if (myInterval) {
-        clearInterval(myInterval);
-        myInterval = null;
+function holEintraege() {
+    const eintraegeStr = localStorage.getItem('eintraegeArray');
+    if (!eintraegeStr) {
+        const leererArray = [];
+        localStorage.setItem('eintraegeArray', JSON.stringify(leererArray));
+        return leererArray;
     }
-    const video = document.getElementById('video');
-    if (video && video.srcObject) {
-        const stream = video.srcObject;
-        stream.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
-    }
-    drawCodePath({});
-}
-
-const detectCode = () => {
-    const video = document.getElementById('video');
-    if (!video || video.paused || video.ended || !barcodeDetector) return;
-
-    barcodeDetector.detect(video)
-        .then(detectedCodes => {
-            if (detectedCodes.length === 0) {
-                return drawCodePath({});
-            }
-            
-            for (const barcode of detectedCodes) {
-                if (seen.has(barcode.rawValue)) continue;
-                
-                // Barcode erfolgreich erkannt
-                onBarcodeDetected(barcode);
-                break; 
-            }
-        })
-        .catch(err => console.error("Scanner-Fehler:", err));
-};
-
-function onBarcodeDetected(barcode) {
-    const codeValue = barcode.rawValue;
-    codes.push(barcode);
-    seen.add(codeValue);
-    
-    if (typeof beep === 'function') beep();
-    
-    const artNrInput = document.getElementById('ArtNr');
-    if (artNrInput) {
-        artNrInput.value = codeValue;
-        // Aktualisiert sofort die Artikeldaten (Einheit, Bezeichnung...) im Formular
-        getArtDaten(); 
-    }
-    
-    stopScanner();
-}
-
-function getArtDaten() {
-    const artNrInput = document.getElementById("ArtNr");
-    if (!artNrInput) return;
-    
-    const sucheArtNr = artNrInput.value.trim();
-    // Greift auf die neue, von Access generierte Row-ID zu
-    const artikelZeile = document.getElementById("Row" + sucheArtNr);
-
-    if (artikelZeile) {
-        const varEinheit = artikelZeile.dataset.einh || '-';
-        const varBez = artikelZeile.dataset.bez || 'Unbekannter Artikel';
-        const varGr = artikelZeile.dataset.gr || '-';
-        const varBestMenge = artikelZeile.dataset.bestm || '';
-        const varAusl = artikelZeile.dataset.ausl || 'Falsch';
-
-        if (document.getElementById('ArtDatEinh')) document.getElementById('ArtDatEinh').textContent = varEinheit;
-        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = varBez;
-        if (document.getElementById('ArtDatGr')) document.getElementById('ArtDatGr').textContent = varGr;
-        
-        const mengeInput = document.getElementById('Menge');
-        if (mengeInput) {
-            mengeInput.value = varBestMenge;
-            mengeInput.focus(); // Setzt den Cursor direkt in das Mengenfeld
-        }
-
-        const idAuslauf = document.getElementById('idAuslauf');
-        if (idAuslauf) {
-            idAuslauf.style.display = (varAusl === 'Wahr') ? 'block' : 'none';
-        }
-    } else {
-        if (document.getElementById('ArtDatBez')) {
-            document.getElementById('ArtDatBez').textContent = sucheArtNr ? "Artikel nicht gefunden" : "Kein Artikel gescannt";
-        }
+    try {
+        return JSON.parse(eintraegeStr);
+    } catch (e) {
+        return [];
     }
 }
 
@@ -183,7 +66,6 @@ function todoHinzufuegen() {
         insDOMschreiben(varArtNr, aufgabeText);
         artNrInput.value = '';
         mengeInput.value = '';       
-        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = '';
     }
 }
 
@@ -201,6 +83,7 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintraege = document.getElementById('eintraege');
     if (!eintraege) return;
 
+    // Daten aus den Stammdaten-Attributen holen
     const artikelZeile = document.getElementById("Row" + aufgabeNr);
     const varEinheit = artikelZeile ? artikelZeile.dataset.einh : '-';
     const varBez = artikelZeile ? artikelZeile.dataset.bez : 'Unbekannter Artikel';
@@ -212,6 +95,7 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintrNeueZeile = document.createElement('tr');
     eintrNeueZeile.id = 'X' + aufgabeNr;
 
+    // Lösch-Button Zelle
     const eintrDel = document.createElement('td');
     eintrDel.textContent = 'X';
     eintrDel.id = aufgabeNr;
@@ -237,25 +121,55 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     eintraege.appendChild(eintrNeueZeile);
 }
 
-function holEintraege() {
-    const eintraegeStr = localStorage.getItem('eintraegeArray');
-    if (!eintraegeStr) {
-        const leererArray = [];
-        localStorage.setItem('eintraegeArray', JSON.stringify(leererArray));
-        return leererArray;
-    }
-    try { return JSON.parse(eintraegeStr); } catch (e) { return []; }
-}
 
 function ausDOMentfernen(aufgabeNr) {
-    document.getElementById('X' + aufgabeNr)?.remove();
+    const eintrag = document.getElementById('X' + aufgabeNr);
+    if (eintrag) eintrag.remove();
 }
 
 function allesLöschen() {
     localStorage.clear();
     const itemList = document.getElementById('eintraege');
-    if (itemList) itemList.innerHTML = '';
+    if (itemList) {
+        itemList.innerHTML = '';
+    }
     holEintraege();
+}
+
+function getArtDaten() {
+    const artNrInput = document.getElementById("ArtNr");
+    if (!artNrInput) return;
+    
+    const sucheArtNr = artNrInput.value.trim();
+    
+    // Sucht direkt nach der kompakten Zeile des Artikels
+    const artikelZeile = document.getElementById("Row" + sucheArtNr);
+
+    if (artikelZeile) {
+        // Holen der Daten direkt aus den HTML5 data-Attributen
+        const varEinheit = artikelZeile.dataset.einh || '-';
+        const varBez = artikelZeile.dataset.bez || 'Unbekannter Artikel';
+        const varGr = artikelZeile.dataset.gr || '-';
+        const varBestMenge = artikelZeile.dataset.bestm || '';
+        const varAusl = artikelZeile.dataset.ausl || 'Falsch';
+
+        // Anzeige im Formular aktualisieren
+        if (document.getElementById('ArtDatEinh')) document.getElementById('ArtDatEinh').textContent = varEinheit;
+        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = varBez;
+        if (document.getElementById('ArtDatGr')) document.getElementById('ArtDatGr').textContent = varGr;
+        
+        const mengeInput = document.getElementById('Menge');
+        if (mengeInput) mengeInput.value = varBestMenge;
+
+        // Auslaufwarnung steuern
+        const idAuslauf = document.getElementById('idAuslauf');
+        if (idAuslauf) {
+            idAuslauf.style.display = (varAusl === 'Wahr') ? 'block' : 'none';
+        }
+    } else {
+        // Fallback falls Artikelnummer nicht in den 1000 Datensätzen existiert
+        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = "Artikel nicht im Stamm gefunden";
+    }
 }
 
 function datenSenden() {
@@ -274,31 +188,30 @@ function datenSenden() {
     
     body += 'ENDE';
     const mailBetreff = 'Bestellliste ' + formatUhrzeit();
-    window.location.href = `mailto:office@://tempo-luft.com{encodeURIComponent(mailBetreff)}&body=${encodeURIComponent(body)}`;
+    const to = 'office@tempo-luft.com';
+    
+    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(mailBetreff)}&body=${encodeURIComponent(body)}`;
     allesLöschen();
 }
 
 function formatUhrzeit() {
     const jetzt = new Date();
-    const fNull = (z) => z < 10 ? '0' + z : z;
-return ${jetzt.getFullYear()}.${fNull(jetzt.getMonth() + 1)}.${fNull(jetzt.getDate())} ${fNull(jetzt.getHours())}:${fNull(jetzt.getMinutes())}:${fNull(jetzt.getSeconds())};
+    const h = fuehrendeNull(jetzt.getHours());
+    const m = fuehrendeNull(jetzt.getMinutes());
+    const s = fuehrendeNull(jetzt.getSeconds());
+    const jahr = jetzt.getFullYear();
+    const monat = fuehrendeNull(jetzt.getMonth() + 1);
+    const tag = fuehrendeNull(jetzt.getDate());
+    
+    return `${jahr}.${monat}.${tag} ${h}:${m}:${s}`;
 }
-const drawCodePath = ({ cornerPoints }) => {
-if (!canvas) return;
-const ctx = canvas.getContext('2d');
-if (!ctx) return;
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-if (!cornerPoints || cornerPoints.length === 0) return;
-ctx.strokeStyle = "red";
-ctx.lineWidth = 4;
-ctx.beginPath();
-for (const [i, { x, y }] of cornerPoints.entries()) {
-if (i === 0) { ctx.moveTo(x - ctx.lineWidth / 2, y); continue; }
-ctx.lineTo(x, y);
-if (i === cornerPoints.length - 1) ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
+
+function fuehrendeNull(zahl) {
+    return zahl < 10 ? '0' + zahl : zahl;  
 }
-ctx.stroke();
-};
-function weiterleitungInventur() {
-window.location.href = "github.io";
+
+function beep() {
+    // Die Audio-Daten für den Beep-Sound finden sich in den ursprünglichen Web-Dokumenten.
+    const snd = new Audio("data:audio/wav;base64,...");
+    snd.play().catch(e => console.log("Audio-Play blockiert, erfordert vorherige Nutzerinteraktion."));
 }
