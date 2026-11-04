@@ -83,11 +83,13 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintraege = document.getElementById('eintraege');
     if (!eintraege) return;
 
-    // Daten aus den Stammdaten-Attributen holen
-    const artikelZeile = document.getElementById("Row" + aufgabeNr);
-    const varEinheit = artikelZeile ? artikelZeile.dataset.einh : '-';
-    const varBez = artikelZeile ? artikelZeile.dataset.bez : 'Unbekannter Artikel';
-    const varGr = artikelZeile ? artikelZeile.dataset.gr : '-';
+    const einhElem = document.getElementById('Einh' + aufgabeNr);
+    const bezElem = document.getElementById('Bez' + aufgabeNr);
+    const grElem = document.getElementById('Gr' + aufgabeNr);
+
+    const varEinheit = einhElem ? einhElem.textContent : '-';
+    const varBez = bezElem ? bezElem.textContent : 'Unbekannter Artikel';
+    const varGr = grElem ? grElem.textContent : '-';
 
     const alteZeile = document.getElementById('X' + aufgabeNr);
     if (alteZeile) alteZeile.remove();
@@ -95,7 +97,6 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintrNeueZeile = document.createElement('tr');
     eintrNeueZeile.id = 'X' + aufgabeNr;
 
-    // Lösch-Button Zelle
     const eintrDel = document.createElement('td');
     eintrDel.textContent = 'X';
     eintrDel.id = aufgabeNr;
@@ -117,10 +118,15 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     const eintrGr = document.createElement('td');
     eintrGr.textContent = varGr;
 
-    eintrNeueZeile.append(eintrDel, eintrArtNr, eintrMenge, eintrEinh, eintrBez, eintrGr);
+    eintrNeueZeile.appendChild(eintrDel);
+    eintrNeueZeile.appendChild(eintrArtNr);
+    eintrNeueZeile.appendChild(eintrMenge);
+    eintrNeueZeile.appendChild(eintrEinh);
+    eintrNeueZeile.appendChild(eintrBez);
+    eintrNeueZeile.appendChild(eintrGr);
+
     eintraege.appendChild(eintrNeueZeile);
 }
-
 
 function ausDOMentfernen(aufgabeNr) {
     const eintrag = document.getElementById('X' + aufgabeNr);
@@ -141,34 +147,18 @@ function getArtDaten() {
     if (!artNrInput) return;
     
     const sucheArtNr = artNrInput.value.trim();
-    
-    // Sucht direkt nach der kompakten Zeile des Artikels
-    const artikelZeile = document.getElementById("Row" + sucheArtNr);
+    const einhElem = document.getElementById("Einh" + sucheArtNr);
+    const bezElem = document.getElementById("Bez" + sucheArtNr);
+    const grElem = document.getElementById("Gr" + sucheArtNr);
+    const bestMElem = document.getElementById('BestM' + sucheArtNr);
 
-    if (artikelZeile) {
-        // Holen der Daten direkt aus den HTML5 data-Attributen
-        const varEinheit = artikelZeile.dataset.einh || '-';
-        const varBez = artikelZeile.dataset.bez || 'Unbekannter Artikel';
-        const varGr = artikelZeile.dataset.gr || '-';
-        const varBestMenge = artikelZeile.dataset.bestm || '';
-        const varAusl = artikelZeile.dataset.ausl || 'Falsch';
-
-        // Anzeige im Formular aktualisieren
-        if (document.getElementById('ArtDatEinh')) document.getElementById('ArtDatEinh').textContent = varEinheit;
-        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = varBez;
-        if (document.getElementById('ArtDatGr')) document.getElementById('ArtDatGr').textContent = varGr;
+    if (einhElem && bezElem && grElem && bestMElem) {
+        document.getElementById('ArtDatEinh').textContent = einhElem.textContent;
+        document.getElementById('ArtDatBez').textContent = bezElem.textContent;
+        document.getElementById('ArtDatGr').textContent = grElem.textContent;
         
         const mengeInput = document.getElementById('Menge');
-        if (mengeInput) mengeInput.value = varBestMenge;
-
-        // Auslaufwarnung steuern
-        const idAuslauf = document.getElementById('idAuslauf');
-        if (idAuslauf) {
-            idAuslauf.style.display = (varAusl === 'Wahr') ? 'block' : 'none';
-        }
-    } else {
-        // Fallback falls Artikelnummer nicht in den 1000 Datensätzen existiert
-        if (document.getElementById('ArtDatBez')) document.getElementById('ArtDatBez').textContent = "Artikel nicht im Stamm gefunden";
+        if (mengeInput) mengeInput.value = bestMElem.textContent;
     }
 }
 
