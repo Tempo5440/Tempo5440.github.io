@@ -54,6 +54,7 @@ function getArtDaten() {
     const einhFeld = document.getElementById('ArtDatEinh');
     const bezFeld = document.getElementById('ArtDatBez');
     const grFeld = document.getElementById('ArtDatGr');
+    const bestMFeld = document.getElementById('Menge');
     const auslaufHinweis = document.getElementById('idAuslauf');
 
     if (!artNrInput) return;
@@ -66,6 +67,7 @@ function getArtDaten() {
         if (einhFeld) einhFeld.textContent = artikel.einh || '';
         if (bezFeld) bezFeld.textContent = artikel.bez || '';
         if (grFeld) grFeld.textContent = artikel.gr || '';
+        if (bestMFeld) bestMFeld.textContent = artikel.bestM || '';
         if (auslaufHinweis) {
             auslaufHinweis.style.display = artikel.ausl ? 'block' : 'none';
         }
@@ -75,6 +77,7 @@ function getArtDaten() {
         if (einhFeld) einhFeld.textContent = '';
         if (bezFeld) bezFeld.textContent = '';
         if (grFeld) grFeld.textContent = '';
+        if (bestMFeld) bestMFeld.textContent = '';
         if (auslaufHinweis) auslaufHinweis.style.display = 'none';
         
         // Optisches Feedback: Wenn eine Nummer eingegeben wurde, die es nicht gibt
