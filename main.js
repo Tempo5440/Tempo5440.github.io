@@ -156,7 +156,9 @@ const detectCode = () => {
 }
 
 // Run detect code function every 100 milliseconds
-const myInterval = setInterval(detectCode, 100);
+// Alt: const myInterval = setInterval(detectCode, 100);
+let myInterval = setInterval(detectCode, 100); // Neu mit 'let'
+
 
 function beep() {
     // Die Audio-Daten für den Beep-Sound finden sich in den ursprünglichen Web-Dokumenten.

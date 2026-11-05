@@ -87,10 +87,34 @@ function getArtDaten() {
 }
 
 
-function scanStarten() {
+//function scanStarten() {
 		// Get video element 
-		const video = document.getElementById('video');
-		video.play();
+//		const video = document.getElementById('video');
+//		video.play();
+//}
+
+function scanStarten() {
+  // 1. Vorheriges Intervall zur Sicherheit löschen, falls es noch läuft
+  clearInterval(myInterval);
+  
+  // 2. Das Set der bereits gescannten Codes zurücksetzen
+  seen.clear();
+  
+  // 3. Canvas-Zeichnung der roten Linien löschen (falls vorhanden)
+  if (typeof drawCodePath === 'function') {
+    drawCodePath({});
+  }
+  
+  // 4. Video-Stream fortsetzen, falls er pausiert war
+  const video = document.getElementById('video');
+  if (video) {
+    video.play().catch(err => console.error("Kamera konnte nicht gestartet werden:", err));
+  }
+  
+  // 5. Intervall neu starten und der globalen Variable zuweisen
+  myInterval = setInterval(detectCode, intZeitIntervall || 100);
+  
+  console.log("Scanner wurde reaktiviert.");
 }
 
 
