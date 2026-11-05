@@ -32,6 +32,7 @@ async function init() {
     ladenUndRendern();
 }
 
+
 // Lädt die JSON-Datei einmalig beim App-Start in den Speicher
 async function ladeStammdaten() {
     try {
@@ -45,6 +46,7 @@ async function ladeStammdaten() {
         console.error("Fehler beim Laden der Artikelstammdaten-JSON:", error);
     }
 }
+
 
 // Holt die Artikeldaten bei jeder Eingabe (manuell + Scanner) live aus dem Speicher
 function getArtDaten() {
@@ -84,15 +86,18 @@ function getArtDaten() {
     }
 }
 
+
 function scanStarten() {
 		// Get video element 
-		const video1 = document.getElementById('video');
-		video1.play();
+		const video = document.getElementById('video');
+		video.play();
 }
+
 
 function weiterleitungInventur() {
     window.location.href = "https://tempo5440.github.io/inventur.html";
 }
+
 
 function holEintraege() {
     const eintraegeStr = localStorage.getItem('eintraegeArray');
@@ -103,6 +108,7 @@ function holEintraege() {
         return [];
     }
 }
+
 
 function todoHinzufuegen() {
     const artNrInput = document.getElementById('ArtNr');
@@ -137,6 +143,7 @@ function todoHinzufuegen() {
     //artNrInput.focus();
 }
 
+
 function ladenUndRendern() {
     const eintraegeArray = holEintraege();
     eintraegeArray.forEach(aufgabeNr => {
@@ -153,6 +160,7 @@ function ladenUndRendern() {
     });
 }
 
+
 function todoLoeschen(e) {
     const aufgabeNr = e.target.id;
     let eintraegeArray = holEintraege();
@@ -162,6 +170,7 @@ function todoLoeschen(e) {
     localStorage.setItem('eintraegeArray', JSON.stringify(eintraegeArray));
     ausDOMentfernen(aufgabeNr);
 }
+
 
 function insDOMschreiben(aufgabeNr, itemObj) {
     const eintraege = document.getElementById('eintraege');
@@ -268,6 +277,7 @@ function formatUhrzeit() {
     
     return `${jahr}.${monat}.${tag} ${h}:${m}:${s}`;
 }
+
 
 function fuehrendeNull(zahl) {
     return zahl < 10 ? '0' + zahl : zahl;  
