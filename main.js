@@ -44,7 +44,8 @@ const codesProxy = new Proxy(codes, {
         if (artDatEinh) artDatEinh.textContent = artikel.einh || '';
         if (artDatBez)  artDatBez.textContent  = artikel.bez || '';
         if (artDatGr)   artDatGr.textContent   = artikel.gr || '';
-        if (mengeInput) mengeInput.value       = artikel.bestM !== undefined ? artikel.bestM : '';
+        if (mengeInput) mengeInput.value = artikel.bestM ?? '';
+        //if (mengeInput) mengeInput.value       = artikel.bestM !== undefined ? artikel.bestM : '';
         if (auslaufHinweis) {
             auslaufHinweis.style.display = artikel.ausl ? 'block' : 'none';
         }
