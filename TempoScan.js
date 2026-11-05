@@ -67,7 +67,7 @@ function getArtDaten() {
         if (einhFeld) einhFeld.textContent = artikel.einh || '';
         if (bezFeld) bezFeld.textContent = artikel.bez || '';
         if (grFeld) grFeld.textContent = artikel.gr || '';
-        if (bestMFeld) bestMFeld.value = artikel.bestM.value || '';
+        if (bestMFeld) bestMFeld.value = artikel.bestM || '';
         if (auslaufHinweis) {
             auslaufHinweis.style.display = artikel.ausl ? 'block' : 'none';
         }
