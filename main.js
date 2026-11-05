@@ -75,6 +75,7 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     },
     audio: false
   };
+
   
   // Start video stream
   navigator.mediaDevices.getUserMedia(constraints)
@@ -83,12 +84,12 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 // Barcode-Ränder zeichnen 
-function drawCodePath({ cornerPoints }) {
+const drawCodePath = ({cornerPoints}) => {
   const canvas = document.querySelector('#canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-
+  
   if (!cornerPoints) return ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -96,16 +97,16 @@ function drawCodePath({ cornerPoints }) {
   ctx.lineWidth = 4;
   ctx.beginPath();
 
-  for (const [i, { x, y }] of cornerPoints.entries()) {
+  for (const [i, {x, y}] of cornerPoints.entries()) {
     if (i === 0) {
-      ctx.moveTo(x - ctx.lineWidth / 2, y);
+      ctx.moveTo(x - ctx.lineWidth/2, y);
       continue;
     }
     ctx.lineTo(x, y);
-    if (i === cornerPoints.length - 1) ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
+    if (i === cornerPoints.length-1) ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
   }
   ctx.stroke();
-}
+};
 
 // Detect code function 
 const detectCode = () => {
