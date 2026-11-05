@@ -43,7 +43,7 @@ const codesProxy = new Proxy(codes, {
     if (artikel) {
         if (artDatEinh) artDatEinh.textContent = artikel.einh || '';
         if (artDatBez)  artDatBez.textContent  = artikel.bez || '';
-        if (artDatGr)   artDatGr.textContent   = artikel.gr || '';
+        if (artDatGr)   artDatGr.textContent   = artikel.gr + artikel.bestM || '';
         if (mengeInput) mengeInput.value = artikel.bestM ?? '';
         //if (mengeInput) mengeInput.value       = artikel.bestM !== undefined ? artikel.bestM : '';
         if (auslaufHinweis) {
