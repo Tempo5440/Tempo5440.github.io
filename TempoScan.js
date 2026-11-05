@@ -67,7 +67,7 @@ function getArtDaten() {
         if (einhFeld) einhFeld.textContent = artikel.einh || '';
         if (bezFeld) bezFeld.textContent = artikel.bez || '';
         if (grFeld) grFeld.textContent = artikel.gr || '';
-        if (bestMFeld) bestMFeld.textContent = artikel.bestM || '';
+        if (bestMFeld) bestMFeld.value = artikel.bestM || '';
         if (auslaufHinweis) {
             auslaufHinweis.style.display = artikel.ausl ? 'block' : 'none';
         }
@@ -77,7 +77,7 @@ function getArtDaten() {
         if (einhFeld) einhFeld.textContent = '';
         if (bezFeld) bezFeld.textContent = '';
         if (grFeld) grFeld.textContent = '';
-        if (bestMFeld) bestMFeld.textContent = '';
+        if (bestMFeld) bestMFeld.value = '';
         if (auslaufHinweis) auslaufHinweis.style.display = 'none';
         
         // Optisches Feedback: Wenn eine Nummer eingegeben wurde, die es nicht gibt
