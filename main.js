@@ -1,13 +1,14 @@
 let codes = [];
 var intZeitIntervall = 100;
 const seen = new Set();
-
 // Create new barcode detector
 const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
 
 // Codes proxy/state
 const codesProxy = new Proxy(codes, {
   set (target, prop, value, receiver) {
+    // Throw err if value is a number
+    // Stops from saving undefined codes
     if (typeof value === 'number') throw value;
     
     target.push(value);
@@ -18,9 +19,10 @@ const codesProxy = new Proxy(codes, {
       const d = seen.has(c.rawValue);
       seen.add(c.rawValue);
       return !d;
-    });
+    })
     
-    // Scanergebnis verarbeiten
+
+    //Scanergebnis eintragen und gefundenen Artikel anzeigen
     beep();
     
     // DOM-Elemente holen
@@ -69,6 +71,7 @@ const video = document.getElementById('video');
 // Kamera auswählen und auf rückseitige Kamera wechseln
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   const constraints = {
+	video: true,
     video: {
       facingMode: "environment", 
       width: 480, height: 480
@@ -77,54 +80,80 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   };
 
   
-  // Start video stream
-  navigator.mediaDevices.getUserMedia(constraints)
-    .then(stream => { if (video) video.srcObject = stream; })
-    .catch(err => console.error("Kamera-Zugriff verweigert oder nicht vorhanden:", err));
+ // Start video stream
+  navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
 }
 
 // Barcode-Ränder zeichnen 
 const drawCodePath = ({cornerPoints}) => {
   const canvas = document.querySelector('#canvas');
-  if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  const strokeGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
   
+  // Exit function and clear canvas if no corner points
   if (!cornerPoints) return ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Clear canvas for new redraw
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Create new gradient
+  strokeGradient.addColorStop('0', 'red');
+  strokeGradient.addColorStop('1', 'red');
+
+  // Define stoke styles
   ctx.strokeStyle = "red";
+  //ctx.strokeStyle = strokeGradient;
   ctx.lineWidth = 4;
+
+  // Begin draw
   ctx.beginPath();
 
+  // Draw code outline path
   for (const [i, {x, y}] of cornerPoints.entries()) {
     if (i === 0) {
+      // Move x half of the stroke width back 
+      // makes the start and end corner line up
       ctx.moveTo(x - ctx.lineWidth/2, y);
       continue;
     }
+
+    // Draw line from current pos to x, y
     ctx.lineTo(x, y);
+
+    // Complete square draw to starting position
     if (i === cornerPoints.length-1) ctx.lineTo(cornerPoints[0].x, cornerPoints[0].y);
   }
+
+  // Make path to stroke
   ctx.stroke();
-};
+}
+
+
+
 
 // Detect code function 
 const detectCode = () => {
-  if (!video || video.paused || video.ended) return; // Verhindert Fehler, wenn Video pausiert ist
   barcodeDetector.detect(video).then(codes => {
+    // If no codes exit function and clear canvas
     if (codes.length === 0) return drawCodePath({});
     
     for (const barcode of codes)  {
-      console.log(barcode);
-      if (seen.has(barcode.rawValue)) return;
+      console.log(barcode)
+      // Draw outline
+      //drawCodePath(barcode);
+      
+      // Code in seen set then exit loop 
+       if (seen.has(barcode.rawValue)) return;
 
+      // Save barcode to window to use later on
+      // then push to the codes proxy
       window.barcodeVal = barcode.rawValue;
       codesProxy.push(barcode);
     }
   }).catch(err => {
     console.error(err);
-  });
-};
+  })
+}
 
 // Run detect code function every 100 milliseconds
 const myInterval = setInterval(detectCode, 100);
