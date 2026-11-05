@@ -3,7 +3,7 @@ var intZeitIntervall = 100;
 const seen = new Set();
 
 // Create new barcode detector
-const barcodeDetector = new barcodeDetector({ formats: ['code_39'] });
+const barcodeDetector = new BarcodeDetector({ formats: ['code_39'] });
 
 // Codes proxy/state
 const codesProxy = new Proxy(codes, {
