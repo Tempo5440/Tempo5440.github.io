@@ -162,7 +162,7 @@ function todoHinzufuegen() {
     // Felder zurücksetzen für den nächsten Artikel
     artNrInput.value = '';
     mengeInput.value = '';
-    ScanStarten(); //Video neu starten
+    scanStarten(); //Video neu starten
     //getArtDaten(); // Löscht die Einheiten- und Bezeichnungsfelder im HTML
     //artNrInput.focus();
 }
