@@ -84,9 +84,10 @@ function getArtDaten() {
     }
 }
 
-function scanStarten() {
-    const video1 = document.getElementById('video');
-    if (video1) video1.play().catch(err => console.error("Video-Play fehlgeschlagen:", err));
+function ScanStarten() {
+		// Get video element 
+		const video1 = document.getElementById('video');
+		video1.play();
 }
 
 function weiterleitungInventur() {
@@ -131,8 +132,9 @@ function todoHinzufuegen() {
     // Felder zurücksetzen für den nächsten Artikel
     artNrInput.value = '';
     mengeInput.value = '';
-    getArtDaten(); // Löscht die Einheiten- und Bezeichnungsfelder im HTML
-    artNrInput.focus();
+    ScanStarten(); //Video neu starten
+    //getArtDaten(); // Löscht die Einheiten- und Bezeichnungsfelder im HTML
+    //artNrInput.focus();
 }
 
 function ladenUndRendern() {
