@@ -13,7 +13,7 @@ async function init() {
     const buttons = {
         'mehr': todoHinzufuegen,
         'loeschen': allesLoeschen,
-        'senden': datenSenden,
+        'senden': datenSendenInv,
         'scannen': scanStarten,
     };
 
@@ -212,7 +212,7 @@ function insDOMschreiben(aufgabeNr, itemObj) {
 
     // 3. Neue Tabellenzeile (tr) erstellen
     const eintrNeueZeile = document.createElement('tr');
-    eintrNeueZeile.id = 'X' + aufgabeNr + zeilenZaehler++;
+    eintrNeueZeile.id = 'X' + aufgabeNr + zeilenZaehler;
 
     // 4. Lösch-Zelle (td) erstellen und Event-Listener binden
     const eintrDel = document.createElement('td');
@@ -247,6 +247,9 @@ function insDOMschreiben(aufgabeNr, itemObj) {
 
     // 7. Zeile in die Tabelle einfügen
     eintraege.appendChild(eintrNeueZeile);
+
+	// 8. ID um 1 erhöhen
+	zeilenZaehler++
 }
 
 
@@ -265,7 +268,7 @@ function allesLoeschen() {
 }
 
 
-function datenSenden() {
+function datenSendenInv() {
     let body = 'Inventurliste:\nANFANG:\n';	
     const eintraegeArray = holEintraege();
     
