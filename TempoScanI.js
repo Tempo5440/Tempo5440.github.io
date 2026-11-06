@@ -212,12 +212,12 @@ function insDOMschreiben(aufgabeNr, itemObj) {
 
     // 3. Neue Tabellenzeile (tr) erstellen
     const eintrNeueZeile = document.createElement('tr');
-    eintrNeueZeile.id = 'X' + aufgabeNr + zeilenZaehler;
+    eintrNeueZeile.id = 'X' + zeilenZaehler;
 
     // 4. Lösch-Zelle (td) erstellen und Event-Listener binden
     const eintrDel = document.createElement('td');
     eintrDel.textContent = 'X';
-    eintrDel.id = aufgabeNr + zeilenZaehler;
+    eintrDel.id = 'X' + zeilenZaehler;
     eintrDel.style.cursor = 'pointer';
     eintrDel.addEventListener('click', todoLoeschen);
 
@@ -272,14 +272,12 @@ function datenSendenInv() {
     let body = 'Inventurliste:\nANFANG:\n';	
     const eintraegeArray = holEintraege();
     
-    eintraegeArray.forEach(aufgabeNr => {
-        const itemStr = localStorage.getItem(aufgabeNr);
-        if (itemStr) {
-            try {
-                const value = JSON.parse(itemStr);
-                body += `ArtNr:${aufgabeNr};Menge:${value.value}EH\n`;
-            } catch(e) {}
-        }
+    eintraegeArray.forEach(item => {
+   
+    const artNr = item.aufgabeNr; // Nimmt die Nummer des aktuellen Eintrags
+    const menge = item.value;     // Nimmt die Menge genau dieses Eintrags
+    
+    body += `ArtNr:${artNr};Menge:${menge}EH\n`;
     });
     
     body += 'ENDE';
