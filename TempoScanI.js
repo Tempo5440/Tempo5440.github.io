@@ -217,7 +217,7 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     // 4. Lösch-Zelle (td) erstellen und Event-Listener binden
     const eintrDel = document.createElement('td');
     eintrDel.textContent = 'X';
-    eintrDel.id = aufgabeNr;
+    eintrDel.id = aufgabeNr + zeilenZaehler;
     eintrDel.style.cursor = 'pointer';
     eintrDel.addEventListener('click', todoLoeschen);
 
@@ -249,12 +249,12 @@ function insDOMschreiben(aufgabeNr, itemObj) {
     eintraege.appendChild(eintrNeueZeile);
 
 	// 8. ID um 1 erhöhen
-	zeilenZaehler++
+	zeilenZaehler++;
 }
 
 
 function ausDOMentfernen(aufgabeNr) {
-    const eintrag = document.getElementById('X' + aufgabeNr);
+    const eintrag = document.getElementById('X' + aufgabeNr + zeilenZaehler);
     if (eintrag) eintrag.remove();
 }
 
