@@ -253,8 +253,8 @@ function insDOMschreiben(aufgabeNr, itemObj) {
 }
 
 
-function ausDOMentfernen(aufgabeNr) {
-    const eintrag = document.getElementById('X' + aufgabeNr + zeilenZaehler);
+function ausDOMentfernen(eintrDel) {
+    const eintrag = document.getElementById('X' + eintrDel);
     if (eintrag) eintrag.remove();
 }
 
@@ -270,15 +270,33 @@ function allesLoeschen() {
 
 function datenSendenInv() {
     let body = 'Inventurliste:\nANFANG:\n';	
-    const eintraegeArray = holEintraege();
-    
-    eintraegeArray.forEach(item => {
-   
-    const artNr = item.aufgabeNr; // Nimmt die Nummer des aktuellen Eintrags
-    const menge = item.value;     // Nimmt die Menge genau dieses Eintrags
-    
-    body += `ArtNr:${artNr};Menge:${menge}EH\n`;
-    });
+   // 1. Die Tabelle und alle ihre Zeilen (tr) holen
+    const invTab = document.getElementById("BestellListe");
+
+    if (invTab) {
+        // Holt alle Zeilen. querySelectorAll erlaubt es, die Kopfzeile (th) zu ignorieren
+        const zeilen = invTab.querySelectorAll("tbody tr, tr:not(:has(th))");
+
+        zeilen.forEach(zeile => {
+            // Alle Zellen (td) der aktuellen Zeile holen
+            const zellen = zeile.getElementsByTagName("td");
+            
+            // Sicherstellen, dass die Zeile überhaupt Datenzellen enthält
+            if (zellen.length >= 2) {
+                
+                const ArtikelNr = zellen[1].textContent.trim();
+                const mengeText = zellen[2].textContent.trim();
+                
+                // Ein Objekt erstellen, damit .value.value wie gewünscht funktioniert
+                const value = { value: mengeText };
+                
+                // Daten in den Body-String eintragen
+                body += `ArtNr:${ArtikelNr};Menge:${value.value}EH\n`;
+            }
+        });
+    } else {
+        console.error("Tabelle mit id='BestellListe' wurde nicht gefunden.");
+    }
     
     body += 'ENDE';
     const mailBetreff = 'Inventurliste ' + formatUhrzeit();
